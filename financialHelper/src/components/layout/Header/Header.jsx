@@ -1,17 +1,57 @@
 import './Header.scss'
 import '@/components/ui/buttons/buttons.scss'
 import {Container, Nav, Navbar} from 'react-bootstrap';
-import React from "react";
+import React, {useEffect} from "react";
 // import {useModal} from "../../hooks/useModal.js";
-import {useModal} from "@/components/shared/hooks/useModal.js";
+import {useModal} from "@/shared/hooks/useModal.js";
+import {UserService} from "@/features/users/service/userService.js";
+import {useForm} from "react-hook-form";
+import {useNavigate} from "react-router-dom";
+import {getJwtPayload, getTokenFromCookie} from "@/shared/utils/jwt.js";
 
 export function LandingHeader() {
-    const {setIsActive, setModal} = useModal();
-    // const navigate = useNavigate();
+    const {setIsActive, setModal, setSubmitHandler, submitHandler} = useModal();
+    const navigate = useNavigate();
+    const {reset} = useForm()
+    const service = new UserService()
+
+
+    const handleLogin = async data => {
+        try {
+            // console.log(data)
+            const response = await service.loginUser(data);
+            console.log("HandleLogin response:", response)
+            setIsActive(false);
+            const payload = getJwtPayload(response.refreshToken)
+            localStorage.setItem("userID", payload.id)
+            localStorage.setItem("username", payload.username)
+            navigate("/boards")
+            reset()
+        } catch (error) {
+            console.error("Ошибка при авторизации:", error)
+        }
+    }
+
+    const handleRegister = async data => {
+        try {
+            const response = await service.registerUser(data);
+            console.log("HandleRegister response:", response)
+            setIsActive(false);
+            navigate("/boards")
+            reset()
+        } catch (error) {
+            console.error("Ошибка при авторизации:", error)
+        }
+    }
 
     async function openModal(modalName) {
         setIsActive(true)
         setModal(modalName)
+        if (modalName === "signIn") {
+            setSubmitHandler(() => handleLogin)
+        } else if (modalName === "signUp") {
+            setSubmitHandler(() => handleRegister)
+        }
     }
 
     return (

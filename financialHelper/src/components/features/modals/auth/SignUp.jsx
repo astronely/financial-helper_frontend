@@ -3,19 +3,19 @@ import {useForm} from "react-hook-form";
 import '../Modal.scss'
 // import '../buttons/buttons.scss'
 import {useNavigate} from "react-router-dom";
-import {useModal} from "../../shared/hooks/useModal.js";
+import {useModal} from "@/shared/hooks/useModal.js";
 import axios from "axios";
 import {toast} from "react-toastify";
 import axiosInstance from "@/api/httpClient/axiosInstance.js";
 
 export function SignUp({open = false}) {
     const navigate = useNavigate();
-    const  {setIsActive} = useModal();
+    const  {setIsActive, submitHandler} = useModal();
 
     const {register, handleSubmit, reset} = useForm({
         defaultValues: {
             email: '',
-            username: '',
+            name: '',
             full_name: '',
             password: ''
         }
@@ -23,13 +23,12 @@ export function SignUp({open = false}) {
 
     function isSignUpDataCorrect(data) {
         return !(data.email === '' || data.username === '' || data.full_name === '' || data.password === '');
-
     }
 
-    const submitHandler = async data => {
-        axiosInstance.get("/api/v1/user/list").then((res) => {
-            console.log(res)
-        })
+    // const submitHandler = async data => {
+    //     axiosInstance.get("/api/v1/user/list").then((res) => {
+    //         console.log(res)
+    //     })
         // console.log(data)
         // if (!isSignUpDataCorrect(data)) {
         //     toast.error("Заполните все поля")
@@ -52,15 +51,15 @@ export function SignUp({open = false}) {
         //         }
         //         else toast.error("Неправильно заполнены поля")
         //     })
-        reset()
-    }
+    //     reset()
+    // }
 
     return (
         <Modal open={open}>
             <form className='modal__form' onSubmit={handleSubmit(submitHandler)}>
                 <input  {...register('email')} className='modal__input' placeholder='Email' type='text' maxLength={45}/>
-                <input {...register('username')} className='modal__input' placeholder='Имя пользователя' type='text' maxLength={30}/>
-                <input {...register('full_name')} className='modal__input' placeholder='ФИО' type='text' maxLength={45}/>
+                <input {...register('name')} className='modal__input' placeholder='Имя пользователя' type='text' maxLength={30}/>
+                {/*<input {...register('full_name')} className='modal__input' placeholder='ФИО' type='text' maxLength={45}/>*/}
                 <input {...register('password')} className='modal__input' placeholder='Пароль' type='password' maxLength={45}/>
                 <button className='modal-button' type='submit'>Зарегистрироваться</button>
             </form>

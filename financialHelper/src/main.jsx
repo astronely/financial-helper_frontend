@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 
 import App from './App.jsx'
-import {ModalProvider} from "@/components/shared/context/ModalContext.jsx";
+import {ModalProvider} from "@/shared/context/ModalContext.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>

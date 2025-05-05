@@ -1,4 +1,4 @@
-export const toCreateUser = (data) => (
+export const ToCreateUser = (data) => (
     {
     info: {
         email: data.email,
@@ -7,7 +7,7 @@ export const toCreateUser = (data) => (
     password: data.password,
 })
 
-export const toUpdateUser = (data) => ({
+export const ToUpdateUser = (data) => ({
     id: data.id,
     info: {
         email: data.email,
@@ -16,7 +16,11 @@ export const toUpdateUser = (data) => ({
     },
 })
 
-export const toLogin = (email, password) => ({
-    email: email,
-    password: password,
+export const ToLogin = (data) => ({
+    email: data.email,
+    password: data.password,
+})
+
+export const ToUser = (data) => ({
+    name: data.name
 })

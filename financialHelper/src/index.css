@@ -1,6 +1,33 @@
+:root {
+    --header-height: 110px;
+    --gray: #3C3C3C;
+    --green: #00BB82;
+    --green-active: #00a077;
+    --red: #B42D4A;
+    --card-text-color: #FCFCFC;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.opacity_animation {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in forwards;
+}
+
+body {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in forwards;
+}
+
 main {
+    /*opacity: 0;*/
+    /*animation: fadeIn 0.5s ease-in forwards;*/
     background: #F5F6F7;
 }
+
 html {
     background: #F5F6F7;
     scroll-behavior: smooth;
@@ -19,3 +46,4 @@ html {
     src: url("/fonts/CruinnRegular.ttf") format("truetype");
     font-style: normal;
 }
+

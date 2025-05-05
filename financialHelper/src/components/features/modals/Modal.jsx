@@ -1,5 +1,5 @@
 import './Modal.scss'
-import {useModal} from "@/components/shared/hooks/useModal.js";
+import {useModal} from "@/shared/hooks/useModal.js";
 
 export function Modal({children, open}) {
     const  {isActive, setIsActive} = useModal();

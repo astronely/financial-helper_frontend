@@ -11,6 +11,14 @@ export const setupInterceptors = (instance) => {
         (error) => Promise.reject(error)
     );
 
+    instance.interceptors.request.use(
+        (config) => {
+            console.log(config)
+            return config;
+        },
+        (error) => Promise.reject(error)
+    )
+
     // Response interceptor
     instance.interceptors.response.use(
         (response) => response.data,

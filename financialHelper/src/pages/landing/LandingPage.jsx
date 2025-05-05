@@ -1,12 +1,12 @@
 import {LandingHeader} from "@/components/layout/Header/Header.jsx";
-import {ModalManager} from "@/components/modals/ModalManager.jsx";
+import {ModalManager} from "@/components/features/modals/ModalManager.jsx";
 import {Home} from "@/components/layout/Home/Home.jsx";
 import {ForWho} from "@/components/layout/ForWho/ForWho.jsx";
 import {Possibilities} from "@/components/layout/Possibilities/Possibilities.jsx";
 import './informationText.scss'
 import './informationBlock.scss'
 
-export function Landing() {
+export function LandingPage() {
     return (
         <>
             <LandingHeader />

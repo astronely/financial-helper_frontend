@@ -2,8 +2,8 @@ import {Col, Container, Row} from "react-bootstrap";
 import './blocks.scss'
 import './text.scss'
 import './buttons.scss'
-import {useModal} from "@/components/shared/hooks/useModal.js";
-import {openModal} from "@/components/shared/utils/modalUtils.js";
+import {useModal} from "@/shared/hooks/useModal.js";
+import {openModal} from "@/shared/utils/modalUtils.js";
 
 export function Home() {
     const  {setIsActive, setModal} = useModal();

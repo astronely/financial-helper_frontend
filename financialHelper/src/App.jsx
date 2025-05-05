@@ -1,12 +1,17 @@
 import {ToastContainer} from "react-toastify";
 import {createBrowserRouter, RouterProvider} from "react-router";
-import {Landing} from "@/components/pages/Landing/Landing.jsx";
+import {LandingPage} from "@/pages/landing/LandingPage.jsx";
+import {BoardsPage} from "@/pages/boards/BoardsPage.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Landing />
+        element: <LandingPage />
     },
+    {
+        path: "/boards",
+        element: <BoardsPage />
+    }
 ]);
 
 export default function App() {
