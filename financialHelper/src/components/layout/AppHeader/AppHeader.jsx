@@ -33,6 +33,8 @@ export function AppHeader() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link className='nav-link nav-text active' href="#" onClick={() => navigate("/")}>Главная</Nav.Link>
+                        {/*// TODO: записки*/}
+                        <Nav.Link className='nav-link nav-text active' href="#" onClick={() => navigate("/notes/:id")}>Заметки</Nav.Link>
                         {/*<Nav.Link className='nav-link nav-text' href="#">Добавить</Nav.Link>*/}
                         {/*<Nav.Link className='nav-link nav-text' href="#">Просмотреть расходы</Nav.Link>*/}
                     </Nav>

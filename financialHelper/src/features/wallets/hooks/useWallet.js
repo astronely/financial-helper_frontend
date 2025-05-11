@@ -8,7 +8,7 @@ export const useWallet = (boardID) => {
 
     useEffect(() => {
         const service = new WalletService();
-        service.loadWallets(boardID)
+        service.list(boardID)
             .then(setWallets)
             .catch(setError)
             .finally(() => setLoading(false))

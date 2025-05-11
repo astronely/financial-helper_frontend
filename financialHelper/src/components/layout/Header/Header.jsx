@@ -8,6 +8,7 @@ import {UserService} from "@/features/users/service/userService.js";
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import {getJwtPayload, getTokenFromCookie} from "@/shared/utils/jwt.js";
+import {toast} from "react-toastify";
 
 export function LandingHeader() {
     const {setIsActive, setModal, setSubmitHandler, submitHandler} = useModal();
@@ -37,7 +38,8 @@ export function LandingHeader() {
             const response = await service.registerUser(data);
             console.log("HandleRegister response:", response)
             setIsActive(false);
-            navigate("/boards")
+            toast.success("Вы успешно зарегистрировались!")
+            const openRes = await openModal("signIn")
             reset()
         } catch (error) {
             console.error("Ошибка при авторизации:", error)

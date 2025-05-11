@@ -1,13 +1,16 @@
 import {InfoColumn} from "@/components/ui/infoColumn/InfoColumn.jsx"
-import {useModal} from "@/shared/hooks/useModal.js";
+// import {useModal} from "@/shared/hooks/useModal.js";
 import {useEffect, useState} from "react";
-import {openConfirm, openModal} from "@/shared/utils/modalUtils.js";
-import {Wallet} from "@/features/wallets/components/Wallet.jsx";
-import {useApp} from "@/shared/hooks/useApp.js";
+// import {openConfirm, openModal} from "@/shared/utils/modalUtils.js";
+// import {Wallet} from "@/features/wallets/components/Wallet.jsx";
+// import {useApp} from "@/shared/hooks/useApp.js";
 import {WalletList} from "@/features/wallets/components/WalletList.jsx";
-import {useWallet} from "@/features/wallets/hooks/useWallet.js";
+// import {useWallet} from "@/features/wallets/hooks/useWallet.js";
+import {WalletService} from "@/features/wallets/service/walletSerivce.js"
+import {useParams} from "react-router";
+import "./Wallets.scss"
 
-export function Wallets() {
+export function WalletsLayout() {
     // const {wallets, setWallets, updateWallets} = useApp();
     // const  {setIsActive, setModal, modal} = useModal();
     // const [walletToUpdate, setWalletToUpdate] = useState(Object());
@@ -45,11 +48,23 @@ export function Wallets() {
     //     return () => clearTimeout(timeout)
     // }, [])
     // const { wallets, loading, error } => useWallet(boardID)
+    const [wallets, setWallets] = useState([]);
+    const walletService = new WalletService()
+    const params = useParams()
+
+    useEffect(() => {
+        walletService.list(params.id)
+            .then(res => {
+                console.log(res)
+                setWallets(res.wallets)
+            })
+            .catch(err => console.error("Не удалось получить кошельки: " + err))
+    }, [])
 
     return (
         <InfoColumn>
             <div className={'column__title'}>Доступные средства</div>
-            <WalletList/>
+            <WalletList wallets={wallets}/>
             <button className={'primary-button'}>Добавить</button>
             {/*<AddWalletModal open={modal === 'addWallet'} wallets={wallets} setWallets={setWallets}/>*/}
             {/*<ChangeWalletModal open={modal === 'changeWallet'} current={walletToUpdate}/>*/}

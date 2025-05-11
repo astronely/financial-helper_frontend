@@ -2,6 +2,7 @@ import {ToastContainer} from "react-toastify";
 import {createBrowserRouter, RouterProvider} from "react-router";
 import {LandingPage} from "@/pages/landing/LandingPage.jsx";
 import {BoardsPage} from "@/pages/boards/BoardsPage.jsx";
+import {BoardPage} from "@/pages/board/BoardPage.jsx";
 
 const router = createBrowserRouter([
     {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
     {
         path: "/boards",
         element: <BoardsPage />
+    },
+    {
+        path: "/board/:id",
+        element: <BoardPage />
     }
 ]);
 

@@ -8,7 +8,8 @@ export class WalletRepository {
     }
 
     async getWallets(boardID) {
-        const { data } = await list(boardID)
-        return ToWalletList(data)
+        const response  = await list(boardID);
+        // return ToWalletList(response.data)
+        return response;
     }
 }

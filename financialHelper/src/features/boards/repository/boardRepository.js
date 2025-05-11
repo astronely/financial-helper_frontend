@@ -1,15 +1,15 @@
-import {listByOwnerID, listByUserID, get, create} from "@/api/boardApi.js";
+import {listByUserID, get, create, setBoard} from "@/api/boardApi.js";
 
 export class BoardRepository {
-    async listByUserID(userID) {
-        const response = await listByUserID(userID);
+    async listByUserID() {
+        const response = await listByUserID();
         return response;
     }
 
-    async listByOwnerID(ownerID) {
-        const response = await listByOwnerID(ownerID);
-        return response;
-    }
+    // async listByOwnerID(ownerID) {
+    //     const response = await listByOwnerID(ownerID);
+    //     return response;
+    // }
 
     async get(boardID) {
         const response = await get(boardID);
@@ -18,6 +18,11 @@ export class BoardRepository {
 
     async create(data) {
         const response = await create(data);
+        return response;
+    }
+
+    async set(data) {
+        const response = await setBoard(data);
         return response;
     }
 }
