@@ -9,20 +9,30 @@ import {WalletService} from "@/features/wallets/service/walletSerivce.js";
 
 export function Transaction({transaction, confirmDelete, setExpenseToDelete}) {
     const {setIsActive, setModal} = useModal();
-    console.log("Transaction:", transaction.transaction)
-    console.log("Details: ", transaction.details)
-    console.log("Category: ", transaction.category)
+
+    // console.log("Transaction:", transaction.transaction)
+    // console.log("Details: ", transaction.details)
+    // console.log("Category: ", transaction.category)
+
     const walletService = new WalletService();
     const [walletName, setWalletName] = useState("");
+    let transactionType = ""
+    if (transaction.transaction.info.type === "income") {
+        transactionType = "+"
+    } else if (transaction.transaction.info.type === "expense") {
+        transactionType = "-"
+    }
+
     useEffect(() => {
         walletService.get(transaction.transaction.info.fromWalletId)
             .then(res => {
-                console.log("From useEffect get wallet", res)
+                // console.log("From useEffect get wallet", res)
                 setWalletName(res.wallet.info.name)
             })
             .catch(err => console.error("Error get wallet info: ", err))
     }, [])
 
+    // TODO: если transfer - то надо выводить откуда и куда
     return (
         <div className={styles.history__card}>
             <div className={"history-card__header"}>
@@ -40,9 +50,8 @@ export function Transaction({transaction, confirmDelete, setExpenseToDelete}) {
                         className={"history-card__primary-text history-card__shop-name"}>{transaction.details.info.name}</div>
                 </div>
                 <div className={"history-card__price"}>
-                    <div className={"history-card__primary-text"}>{transaction.price} RUB</div>
-                    <div
-                        className={"history-card__primary-text history-card__wallet-name"}>{walletName}</div>
+                    <div className={"history-card__primary-text"}>{transactionType} {transaction.transaction.info.amount} RUB</div>
+                    <div className={"history-card__primary-text history-card__wallet-name"}>{walletName}</div>
                 </div>
             </div>
         </div>

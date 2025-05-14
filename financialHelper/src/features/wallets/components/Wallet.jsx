@@ -3,15 +3,15 @@ import {CircleX, Pen} from 'lucide-react'
 import "./WalletCard.scss"
 import styles from "./WalletCard.module.scss"
 
-export function Wallet({wallet, confirmDelete, setWalletToDelete, changeAction}) {
-    const  {setIsActive, setModal} = useModal();
+export function Wallet({wallet, openModal}) {
+
     // console.log(wallet)
     return (
         <div className={styles.wallet__card}>
             <div className={"wallet__info"}>
                 <div className={'wallet__text'}>
                     {wallet.info.name}
-                    <button className={"wallet__button wallet__pen"}><Pen/></button>
+                    <button onClick={() => openModal('updateWallet', wallet.id, wallet.info.name)} className={"wallet__button wallet__pen"}><Pen/></button>
                 </div>
                 <div className={'wallet__text'}>{wallet.info.balance}</div>
             </div>

@@ -5,7 +5,7 @@ import {check} from "@/api/authApi.js"
 export function ProtectedRouter() {
     const [isAuthorized, setIsAuthorized] = useState(null);
     const url = useLocation().pathname
-    console.log(url)
+    // console.log(url)
     useEffect(() => {
         const verify = async () => {
             try {

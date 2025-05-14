@@ -17,3 +17,12 @@ export const create = data =>
 
 export const setBoard = data =>
     axiosInstance.get(boardURL + '/set?boardId=' + data)
+
+export const update = data =>
+    axiosInstance.put(boardURL, data);
+
+export const join = token =>
+    axiosInstance.get(boardURL + 'joint?token=' + token)
+
+export const getUsers = boardID =>
+    axiosInstance.get(boardURL + '/users?boardId=' + boardID);

@@ -13,7 +13,7 @@ export const setupInterceptors = (instance) => {
 
     instance.interceptors.request.use(
         (config) => {
-            console.log(config)
+            // console.log(config)
             return config;
         },
         (error) => Promise.reject(error)

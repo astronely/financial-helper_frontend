@@ -7,3 +7,12 @@ export const get = (walletID) =>
 
 export const list = (boardID) =>
     axiosInstance.get(walletURL + 's' + '?boardId=' + boardID)
+
+export const add = (data) =>
+    axiosInstance.post(walletURL, data);
+
+export const del = (id) =>
+    axiosInstance.delete(walletURL + "?id=" + id);
+
+export const update = (data) =>
+    axiosInstance.put(walletURL, data);

@@ -9,7 +9,7 @@ export class TransactionService {
     async list(boardID) {
         if (!boardID) throw new Error('BoardID is required')
         const data = await this.repo.list(boardID)
-        console.log(data)
+        // console.log(data)
         return data
     }
 }

@@ -1,4 +1,4 @@
-import {get, list} from "@/api/walletApi.js"
+import {get, list, add, update} from "@/api/walletApi.js"
 import {ToWallet, ToWalletList} from "@/api/models/wallet.js";
 
 export class WalletRepository {
@@ -10,6 +10,16 @@ export class WalletRepository {
     async getWallets(boardID) {
         const response  = await list(boardID);
         // return ToWalletList(response.data)
+        return response;
+    }
+
+    async create(data) {
+        const response = await add(data);
+        return response;
+    }
+
+    async update(data) {
+        const response = await update(data);
         return response;
     }
 }

@@ -1,73 +1,89 @@
 import {InfoColumn} from "@/components/ui/infoColumn/InfoColumn.jsx"
-// import {useModal} from "@/shared/hooks/useModal.js";
 import {useEffect, useState} from "react";
-// import {openConfirm, openModal} from "@/shared/utils/modalUtils.js";
-// import {Wallet} from "@/features/wallets/components/Wallet.jsx";
-// import {useApp} from "@/shared/hooks/useApp.js";
 import {WalletList} from "@/features/wallets/components/WalletList.jsx";
-// import {useWallet} from "@/features/wallets/hooks/useWallet.js";
 import {WalletService} from "@/features/wallets/service/walletSerivce.js"
 import {useParams} from "react-router";
 import "./Wallets.scss"
+import {useModal} from "@/shared/hooks/useModal.js";
+import {useForm} from "react-hook-form";
 
 export function WalletsLayout() {
-    // const {wallets, setWallets, updateWallets} = useApp();
-    // const  {setIsActive, setModal, modal} = useModal();
-    // const [walletToUpdate, setWalletToUpdate] = useState(Object());
-    // const [walletToDelete, setWalletToDelete] = useState('');
-
-    // async function deleteWallet(name){
-    //     setWallets(w => w.filter(item => item.name !== name))
-    //
-    //     await axios.delete("http://localhost:8080/api/wallets/delete",{
-    //         data: {
-    //             name: name,
-    //         },
-    //         withCredentials: true},)
-    //         .then(() => {
-    //             toast.success("Кошелек успешно удален")
-    //         })
-    //         .catch(error => {
-    //             toast.error("Кошелек не был удален")
-    //             console.log(error.response)
-    //         })
-    // }
-    //
-    // const changeWallet = wallet => {
-    //     setWalletToUpdate(wallet)
-    //     // console.log("wallet to update: ", walletToUpdate)
-    //     openModal(setIsActive, setModal, "changeWallet")
-    // }
-    //
-    // useEffect(() => {
-    //     const timeout = setTimeout(() => {
-    //         updateWallets().then()
-    //         wallets.sort((a, b) => a.id - b.id)
-    //     }, 0)
-    //
-    //     return () => clearTimeout(timeout)
-    // }, [])
-    // const { wallets, loading, error } => useWallet(boardID)
     const [wallets, setWallets] = useState([]);
-    const walletService = new WalletService()
+    const [walletChanged, setWalletChanged] = useState(false);
+
     const params = useParams()
+
+    const {setIsActive, setModal, setSubmitHandler, setBaseInfo, baseInfo} = useModal();
+    const {reset} = useForm()
+
+    const walletService = new WalletService()
 
     useEffect(() => {
         walletService.list(params.id)
             .then(res => {
-                console.log(res)
+                // console.log(res)
                 setWallets(res.wallets)
             })
             .catch(err => console.error("Не удалось получить кошельки: " + err))
-    }, [])
+    }, [walletChanged])
+
+    const handleAddWallet = async data => {
+        try {
+            // console.log(data)
+            const dataToSend = {
+                info: {
+                    ownerId: localStorage.getItem("userID"),
+                    boardId: params.id,
+                    name: data.name,
+                    balance: data.balance,
+                }
+            }
+            const response = await walletService.create(dataToSend)
+            setWalletChanged(!walletChanged)
+            // console.log(response)
+            setIsActive(false)
+            reset()
+        } catch (error) {
+            console.error("Не удалось добавить кошелек: " + error)
+        }
+    }
+
+    const handleChangeWallet = async ({name, id}) => {
+        try {
+            const dataToSend = {
+                id: id,
+                info: {
+                    name: name,
+                }
+            }
+            // console.log(dataToSend)
+            const response = await walletService.update(dataToSend)
+            // console.log(response)
+            setWalletChanged(!walletChanged)
+            setIsActive(false)
+            reset()
+        } catch (error) {
+            console.error("Не удалось обновить кошелек: " + error)
+        }
+    }
+
+    function openModal(modalName, walletID, walletName) {
+        setIsActive(true)
+        setModal(modalName)
+
+        if (modalName === "addWallet") {
+            setSubmitHandler(() => handleAddWallet)
+        } else if (modalName === "updateWallet") {
+            setBaseInfo({name: walletName})
+            setSubmitHandler(() => (data) => handleChangeWallet({...data, id: walletID}))
+        }
+    }
 
     return (
         <InfoColumn>
             <div className={'column__title'}>Доступные средства</div>
-            <WalletList wallets={wallets}/>
-            <button className={'primary-button'}>Добавить</button>
-            {/*<AddWalletModal open={modal === 'addWallet'} wallets={wallets} setWallets={setWallets}/>*/}
-            {/*<ChangeWalletModal open={modal === 'changeWallet'} current={walletToUpdate}/>*/}
+            <WalletList wallets={wallets} openModal={openModal}/>
+            <button onClick={() => openModal("addWallet")} className={'primary-button'}>Добавить</button>
             {/*<ConfirmItemDeleteModal open={modal === 'confirmDeleteWallet'} item={walletToDelete} deleteAction={deleteWallet}/>*/}
         </InfoColumn>
     )
