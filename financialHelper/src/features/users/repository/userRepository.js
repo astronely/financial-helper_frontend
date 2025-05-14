@@ -1,5 +1,5 @@
 import {get, create} from "@/api/userApi.js";
-import {login} from "@/api/authApi.js"
+import {login, logout} from "@/api/authApi.js"
 import {ToCreateUser, ToLogin, ToUser} from "@/api/models/user.js";
 
 export class UserRepository {
@@ -9,13 +9,18 @@ export class UserRepository {
     }
 
     async login(data) {
-        const response = await login(ToLogin(data))
+        const response = await login(ToLogin(data));
         // console.log("UserRepo:", data)
-        return response
+        return response;
+    }
+
+    async logout() {
+        const response = await logout();
+        return response;
     }
 
     async register(data) {
-        const response = await create(ToCreateUser(data))
-        return response
+        const response = await create(ToCreateUser(data));
+        return response;
     }
 }

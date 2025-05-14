@@ -4,6 +4,7 @@ import React from "react";
 import {useLoaderData, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
+import {UserService} from "@/features/users/service/userService.js";
 
 
 export function AppHeader() {
@@ -11,18 +12,25 @@ export function AppHeader() {
     // const usernameFromLoader = useLoaderData()
     const username = localStorage.getItem('username');
     const navigate = useNavigate();
+    const service = new UserService()
 
     const logout = async () => {
-        await axios.get('http://localhost:8080/api/signout', {withCredentials: true})
-            .then(response => {
-                // console.log(response)
-                if (response.status === 200) {
-                    // console.log(response.data)
-                    navigate("/", {replace: true})
-                }
-            })
-            .catch(error => console.log(error))
-        toast.success("Вы успешно вышли из своей учетной записи")
+        try {
+            const response = await service.logout()
+            navigate('/')
+            toast.success("Вы успешно вышли из своей учетной записи")
+        } catch (error) {
+            console.error("Ошибка выхода из профиля: " + error)
+        }
+        // await axios.get('http://localhost:8080/api/signout', {withCredentials: true})
+        //     .then(response => {
+        //         // console.log(response)
+        //         if (response.status === 200) {
+        //             // console.log(response.data)
+        //             navigate("/", {replace: true})
+        //         }
+        //     })
+        //     .catch(error => console.log(error))
     }
 
     return (

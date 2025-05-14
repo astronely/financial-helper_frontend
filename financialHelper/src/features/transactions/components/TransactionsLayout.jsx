@@ -2,6 +2,9 @@ import {InfoColumn} from "@/components/ui/infoColumn/InfoColumn.jsx";
 import './History.scss'
 import {Transaction} from "./Transaction.jsx";
 import {useEffect, useState} from "react";
+import {TransactionService} from "@/features/transactions/service/transactionService.js";
+import {useParams} from "react-router";
+import {TransactionList} from "@/features/transactions/components/TransactionList.jsx";
 // import {useModal} from "../../../hooks/useModal.js";
 // import axios from "axios";
 // import {AddExpenseModal} from "./TransactionModal.jsx";
@@ -95,23 +98,23 @@ export function TransactionsLayout() {
     // <Transaction expense={item} confirmDelete={openConfirm} setExpenseToDelete={setExpenseToDelete}
     //              key={index}/>
     const [transactions, setTransactions] = useState([]);
-    useEffect(() => {
+    const transactionService = new TransactionService();
+    const params = useParams()
 
+    useEffect(() => {
+        transactionService.list(params.id)
+            .then(res => {
+                console.log("Transactions: ", res)
+                setTransactions(res.transactions)
+            })
+            .catch(err => console.error("Error get list transactions: ", err))
     }, [])
 
     return (
         <InfoColumn>
             <div className={'column__title'}>Совершенные операции</div>
             <div className={'history'}>
-                <div className={'history__header'}>
-                    <div>Все операции</div>
-                    {/*<img src="icons/list.svg"/>*/}
-                </div>
-                <div className={'history__cards'}>
-                    {transactions.map((item, index) => (
-                        <Transaction expense={item} key={index}/>
-                    ))}
-                </div>
+                <TransactionList transactions={transactions}/>
             </div>
             <button className={"primary-button"}> Добавить </button>
 

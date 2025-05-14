@@ -5,6 +5,11 @@ export class WalletService {
         this.repo = repo;
     }
 
+    async get(walletID) {
+        if (!walletID) throw new Error('WalletID is required')
+        return await this.repo.getWallet(walletID)
+    }
+
     async list(boardID) {
         if (!boardID) throw new Error('BoardID is required')
         return await this.repo.getWallets(boardID)

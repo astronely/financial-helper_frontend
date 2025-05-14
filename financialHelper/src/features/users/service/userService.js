@@ -7,11 +7,15 @@ export class UserService {
 
     async loginUser(data) {
         if (!data.email || !data.password) throw new Error('All fields are required')
-        return await this.repo.login(data)
+        return await this.repo.login(data);
+    }
+
+    async logout() {
+        return await this.repo.logout();
     }
 
     async registerUser(data) {
         if (!data.email || !data.name || !data.password) throw new Error('All fields are required')
-        return await this.repo.register(data)
+        return await this.repo.register(data);
     }
 }

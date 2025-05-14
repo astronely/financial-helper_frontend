@@ -3,6 +3,7 @@ import {createBrowserRouter, RouterProvider} from "react-router";
 import {LandingPage} from "@/pages/landing/LandingPage.jsx";
 import {BoardsPage} from "@/pages/boards/BoardsPage.jsx";
 import {BoardPage} from "@/pages/board/BoardPage.jsx";
+import {ProtectedRouter} from "@/features/protectedRouter/ProtectedRouter.jsx";
 
 const router = createBrowserRouter([
     {
@@ -10,13 +11,18 @@ const router = createBrowserRouter([
         element: <LandingPage />
     },
     {
-        path: "/boards",
-        element: <BoardsPage />
+      element: <ProtectedRouter />,
+      children: [
+          {
+              path: "/boards",
+              element: <BoardsPage />
+          },
+          {
+              path: "/board/:id",
+              element: <BoardPage />
+          }
+      ]
     },
-    {
-        path: "/board/:id",
-        element: <BoardPage />
-    }
 ]);
 
 export default function App() {

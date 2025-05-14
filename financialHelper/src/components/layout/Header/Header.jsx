@@ -21,7 +21,7 @@ export function LandingHeader() {
         try {
             // console.log(data)
             const response = await service.loginUser(data);
-            console.log("HandleLogin response:", response)
+            // console.log("HandleLogin response:", response)
             setIsActive(false);
             const payload = getJwtPayload(response.refreshToken)
             localStorage.setItem("userID", payload.id)
