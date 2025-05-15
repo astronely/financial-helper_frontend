@@ -14,6 +14,15 @@
   background-size: 100%;
 }
 
+.navbar-link {
+  border-radius: 1rem;
+  padding: 0.25rem;
+  &:hover {
+    border-radius: 1rem;
+    background-color: var(--green-transparent-20);
+  }
+}
+
 .navbar-menu {
   display: flex;
   align-items: center;

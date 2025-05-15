@@ -1,19 +1,19 @@
 .primary-button {
   padding: 0 10px;
-  border: 1px solid #00BB82;
+  border: 1px solid var(--primary-button);
   background-color: transparent;
   border-radius: 10px;
   transition: 0.4s;
   font-family: "Cruinn", serif;
   &:hover {
-    background-color: #00BB82;
-    border-color: #00BB82;
+    background-color: var(--primary-button-hover);
+    border-color: var(--primary-button-hover);
     transition: 0.4s;
   }
 
   &:active {
-    background-color: #17926C;
-    border-color: #17926C;
+    background-color: var(--primary-button-active);
+    border-color: var(-green-button-active);
     transition: 0.4s;
   }
 }
@@ -22,23 +22,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #3C3C3C;
+  color: var(--gray);
   font-family: "Cruinn", serif;
   width: auto;
   height: 35px;
   box-shadow: 0 7px 15px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
-  background-color: rgba(0, 187, 130, 0.5);
+  background-color: var(--modal-button);
   border: none;
   transition: 0.4s;
 
   &:hover {
-    background-color: rgba(0, 187, 130, 0.8);
+    background-color: var(--modal-button-hover);
     transition: 0.4s;
   }
 
   &:active {
-    background-color: #00BB82;
+    background-color: var(--modal-button-active);
     transition: 0.4s;
   }
 }

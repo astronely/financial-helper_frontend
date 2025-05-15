@@ -29,26 +29,13 @@
     align-items: center;
     text-align: center;
 
-    color: #3c3c3c;
+    color: var(--gray);
   }
 
   &__operation-date {
     display: flex;
     //font-size: 16px;
     justify-content: center;
-  }
-
-  &__button {
-    display: flex;
-    align-items: center;
-    background-color: transparent;
-    border: none;
-    border-radius: 5px;
-    transition: 0.3s;
-    &:hover {
-      background-color: rgba(0, 187, 130, 0.5);
-      transition: 0.3s;
-    }
   }
 }
 

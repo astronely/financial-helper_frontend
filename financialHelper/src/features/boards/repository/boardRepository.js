@@ -1,4 +1,4 @@
-import {listByUserID, get, create, setBoard} from "@/api/boardApi.js";
+import {listByUserID, get, create, setBoard, invite} from "@/api/boardApi.js";
 
 export class BoardRepository {
     async listByUserID() {
@@ -23,6 +23,11 @@ export class BoardRepository {
 
     async set(data) {
         const response = await setBoard(data);
+        return response;
+    }
+
+    async invite(data) {
+        const response = await invite(data);
         return response;
     }
 }

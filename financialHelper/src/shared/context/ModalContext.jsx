@@ -9,6 +9,8 @@ export const ModalContext = createContext({
     setSubmitHandler: null,
     baseInfo: null,
     setBaseInfo: null,
+    updateItems: false,
+    setUpdateItems: null,
 })
 
 export const ModalProvider = ({ children }) => {
@@ -16,6 +18,7 @@ export const ModalProvider = ({ children }) => {
     const [modal, setModal] = useState('')
     const [submitHandler, setSubmitHandler] = useState(() => {})
     const [baseInfo, setBaseInfo] = useState({})
+    const [updateItems, setUpdateItems] = useState(false)
 
     return (
         <ModalContext.Provider value={{
@@ -23,6 +26,7 @@ export const ModalProvider = ({ children }) => {
             modal, setModal,
             submitHandler, setSubmitHandler,
             baseInfo, setBaseInfo,
+            updateItems, setUpdateItems,
         }}>
             {children}
         </ModalContext.Provider>

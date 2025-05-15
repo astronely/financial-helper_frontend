@@ -1,10 +1,11 @@
 import {InfoColumn} from "@/components/ui/infoColumn/InfoColumn.jsx";
-import './History.scss'
+import './Transaction.scss'
 import {Transaction} from "./Transaction.jsx";
 import {useEffect, useState} from "react";
 import {TransactionService} from "@/features/transactions/service/transactionService.js";
 import {useParams} from "react-router";
 import {TransactionList} from "@/features/transactions/components/TransactionList.jsx";
+import {useModal} from "@/shared/hooks/useModal.js";
 // import {useModal} from "../../../hooks/useModal.js";
 // import axios from "axios";
 // import {AddExpenseModal} from "./TransactionModal.jsx";
@@ -65,27 +66,6 @@ export function TransactionsLayout() {
     //         })
     // }
     //
-    // async function deleteExpense(expense){
-    //     console.log(expense)
-    //     setExpenses(w => w.filter(item => item.id !== expense.id))
-    //     await axios.delete("http://localhost:8080/api/expenses/delete",{
-    //         data: {
-    //             id: expense.id,
-    //         },
-    //         withCredentials: true},)
-    //         .then(() => {
-    //             increaseWalletBalance({
-    //                 name: expense.wallet_name,
-    //                 value: expense.price.toString(),
-    //                 currency: expense.currency
-    //             })
-    //             toast.success("Successfully delete expense")
-    //         })
-    //         .catch(error => {
-    //             console.log(error.response)
-    //             toast.error("Expense not delete")
-    //         })
-    // }
     //
     // useEffect(() => {
     //     const timeout = setTimeout(() => {
@@ -95,11 +75,13 @@ export function TransactionsLayout() {
     //
     //     return () => clearTimeout(timeout)
     // }, [wallets])
-    // <Transaction expense={item} confirmDelete={openConfirm} setExpenseToDelete={setExpenseToDelete}
-    //              key={index}/>
+
     const [transactions, setTransactions] = useState([]);
-    const transactionService = new TransactionService();
     const params = useParams()
+    const {updateItems, setUpdateItems} = useModal()
+
+    const transactionService = new TransactionService();
+
 
     useEffect(() => {
         transactionService.list(params.id)
@@ -108,7 +90,7 @@ export function TransactionsLayout() {
                 setTransactions(res.transactions)
             })
             .catch(err => console.error("Error get list transactions: ", err))
-    }, [])
+    }, [updateItems])
 
     return (
         <InfoColumn>
@@ -117,10 +99,6 @@ export function TransactionsLayout() {
                 <TransactionList transactions={transactions}/>
             </div>
             <button className={"primary-button"}> Добавить </button>
-
-            {/*<button onClick={() => openModal(setIsActive, setModal, 'addExpense')} className={"primary-button"}>Добавить</button>*/}
-            {/*<AddExpenseModal open={modal === 'addExpense'} addExpense={getExpense}/>*/}
-            {/*<ConfirmItemDeleteModal open={modal === 'confirmDeleteExpense'} item={expenseToDelete} deleteAction={deleteExpense}/>*/}
         </InfoColumn>
     )
 }

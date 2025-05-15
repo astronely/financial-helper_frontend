@@ -24,4 +24,8 @@ export class WalletService {
         if (!data.id || !data.info.name) throw new Error('All fields are required')
         return await this.repo.update(data)
     }
+
+    async delete(id) {
+        return await this.repo.delete(id)
+    }
 }

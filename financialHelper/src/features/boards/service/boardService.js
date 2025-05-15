@@ -28,4 +28,8 @@ export class BoardService {
     async set(data) {
         return await this.repo.set(data)
     }
+
+    async invite(data) {
+        return await this.repo.invite(data)
+    }
 }

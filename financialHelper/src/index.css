@@ -2,9 +2,21 @@
     --header-height: 110px;
     --gray: #3C3C3C;
     --green: #00BB82;
+    --green-button-active: #17926C;
+    --green-icon-active: rgba(0, 187, 130, 0.5);
+    --green-transparent-20: rgba(0, 187, 130, 0.2);
+
     --green-active: #00a077;
     --red: #B42D4A;
     --card-text-color: #FCFCFC;
+
+    --primary-button: #00BB82;
+    --primary-button-hover: #00BB82;
+    --primary-button-active: #17926C;
+
+    --modal-button: #00BB827F;
+    --modal-button-hover: #00BB82CC;
+    --modal-button-active: var(--green);
 }
 
 @keyframes fadeIn {

@@ -1,5 +1,5 @@
 // import {InfoColumn} from "@/components/ui/infoColumn/InfoColumn.jsx";
-// import './History.scss'
+// import './Transaction.scss'
 // import {Transaction} from "./Transaction.jsx";
 // import {useEffect, useState} from "react";
 // // import {useModal} from "../../../hooks/useModal.js";

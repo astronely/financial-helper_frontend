@@ -9,11 +9,8 @@ import {useForm} from "react-hook-form";
 
 export function WalletsLayout() {
     const [wallets, setWallets] = useState([]);
-    const [walletChanged, setWalletChanged] = useState(false);
-
     const params = useParams()
-
-    const {setIsActive, setModal, setSubmitHandler, setBaseInfo, baseInfo} = useModal();
+    const {setIsActive, setModal, setSubmitHandler, setBaseInfo, updateItems, setUpdateItems} = useModal();
     const {reset} = useForm()
 
     const walletService = new WalletService()
@@ -25,7 +22,7 @@ export function WalletsLayout() {
                 setWallets(res.wallets)
             })
             .catch(err => console.error("Не удалось получить кошельки: " + err))
-    }, [walletChanged])
+    }, [updateItems])
 
     const handleAddWallet = async data => {
         try {
@@ -39,7 +36,7 @@ export function WalletsLayout() {
                 }
             }
             const response = await walletService.create(dataToSend)
-            setWalletChanged(!walletChanged)
+            setUpdateItems(!updateItems)
             // console.log(response)
             setIsActive(false)
             reset()
@@ -59,11 +56,23 @@ export function WalletsLayout() {
             // console.log(dataToSend)
             const response = await walletService.update(dataToSend)
             // console.log(response)
-            setWalletChanged(!walletChanged)
+            setUpdateItems(!updateItems)
             setIsActive(false)
             reset()
         } catch (error) {
             console.error("Не удалось обновить кошелек: " + error)
+        }
+    }
+
+    const handleDeleteWallet = async ({id, name}) => {
+        try {
+            console.log("Handle delete wallet: " + id + ":" + name)
+            const response = await walletService.delete(id)
+            setUpdateItems(!updateItems)
+            setIsActive(false)
+            reset()
+        } catch (error) {
+            console.error("Не удалось удалить кошелек: " + error)
         }
     }
 
@@ -76,6 +85,9 @@ export function WalletsLayout() {
         } else if (modalName === "updateWallet") {
             setBaseInfo({name: walletName})
             setSubmitHandler(() => (data) => handleChangeWallet({...data, id: walletID}))
+        } else if (modalName === "confirm") {
+            setBaseInfo({name: walletName})
+            setSubmitHandler(() => (data) => handleDeleteWallet({...data, id: walletID, name: walletName}))
         }
     }
 
@@ -83,7 +95,7 @@ export function WalletsLayout() {
         <InfoColumn>
             <div className={'column__title'}>Доступные средства</div>
             <WalletList wallets={wallets} openModal={openModal}/>
-            <button onClick={() => openModal("addWallet")} className={'primary-button'}>Добавить</button>
+            <button onClick={() => openModal("addWallet")} className='primary-button'>Добавить</button>
             {/*<ConfirmItemDeleteModal open={modal === 'confirmDeleteWallet'} item={walletToDelete} deleteAction={deleteWallet}/>*/}
         </InfoColumn>
     )

@@ -44,6 +44,13 @@
   background-color: #D8FFFE;
   border-radius: 5px;
   border: 1px solid #00BB82;
+  transition: border-color 0.2s;
+}
+
+.modal__error {
+  border-color: #cc2b1a;
+  border-width: 1px;
+  transition: 0.2s;
 }
 
 .modal__form {
@@ -53,11 +60,40 @@
   gap: 0.8rem;
 }
 
-.modal__error {
-  padding-top: 1.5rem;
-  text-align: center;
-  font-family: "Montserrat Alternates", serif;
+.modal__invite {
+  &-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  &-url {
+    border-radius: 5px;
+    padding: 1.75px;
+    background-color: var(--green-transparent-20);
+  }
+
+  &-icon-copy {
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+      border-radius: 5px;
+      padding: 1.75px;
+      background-color: var(--green-icon-active);
+      transition: 0.3s;
+    }
+  }
 }
+
+//.modal__error {
+//  color: #e74c3c; /* красный, но не агрессивный */
+//  text-align: center;
+//  font-size: 0.85rem;
+//  //margin-top: 4px;
+//  //margin-bottom: 8px;
+//  //padding-left: 4px;
+//  font-weight: 500;
+//}
 
 .modal__buttons {
   display: flex;
