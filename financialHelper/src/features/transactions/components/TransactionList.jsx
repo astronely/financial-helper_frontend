@@ -9,8 +9,8 @@ export function TransactionList({transactions, openModal}) {
                 {/*<img src="icons/list.svg"/>*/}
             </div>
             <div className='history__cards'>
-                {transactions.map((item, index) => (
-                    <Transaction transaction={item} openModal={openModal} key={index}/>
+                {transactions.map((item) => (
+                    <Transaction transaction={item} openModal={openModal} key={item.transaction.id}/>
                 ))}
             </div>
         </>
