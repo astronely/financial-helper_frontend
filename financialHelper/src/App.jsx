@@ -4,6 +4,7 @@ import {LandingPage} from "@/pages/landing/LandingPage.jsx";
 import {BoardsPage} from "@/pages/boards/BoardsPage.jsx";
 import {BoardPage} from "@/pages/board/BoardPage.jsx";
 import {ProtectedRouter} from "@/features/protectedRouter/ProtectedRouter.jsx";
+import {InviteHandler} from "@/features/inviteHandler/InviteHandler.jsx";
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
           }
       ]
     },
+    {
+        path: "/invite/:token",
+        element: <InviteHandler />
+    }
 ]);
 
 export default function App() {

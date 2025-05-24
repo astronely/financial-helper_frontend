@@ -1,10 +1,10 @@
 import axiosInstance from "@/api/httpClient/axiosInstance.js";
 
 const boardURL = `/api/v1/board`
-const boardListURL = `/api/v1/user/boards`
+const boardListURL = `/api/v1/boards`
 
 export const get = boardID =>
-    axiosInstance.get(boardURL + '?id=' + boardID);
+    axiosInstance.get(boardURL + '/' + boardID);
 
 // export const listByOwnerID = ownerID =>
 //     axiosInstance.get(boardURL + '/listByOwnerId' + '?ownerId=' + ownerID);
@@ -16,16 +16,16 @@ export const create = data =>
     axiosInstance.post(boardURL, data);
 
 export const setBoard = data =>
-    axiosInstance.get(boardURL + '/set?boardId=' + data)
+    axiosInstance.get(boardURL + '/set/' + data)
 
 export const update = data =>
     axiosInstance.put(boardURL, data);
 
 export const invite = data =>
-    axiosInstance.get(boardURL + '/generateInviteToken?boardId=' + data.boardID + '&userId=' + data.userID + '&role=editor');
+    axiosInstance.get(boardURL + '/generateInviteToken');
 
 export const join = token =>
-    axiosInstance.get(boardURL + 'join?token=' + token)
+    axiosInstance.get(boardURL + '/join/' + token)
 
 export const getUsers = boardID =>
     axiosInstance.get(boardURL + '/users?boardId=' + boardID);

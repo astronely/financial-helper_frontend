@@ -4,10 +4,10 @@ import {useModal} from "@/shared/hooks/useModal.js";
 import {ErrorMessage} from "@hookform/error-message";
 
 export function AddWallet({open = false}) {
-    const  {setIsActive, submitHandler} = useModal();
+    const  {submitHandler} = useModal();
     const requiredMessage = "Обязательно для заполнения"
 
-    const {register, handleSubmit, reset, formState: { errors}} = useForm({
+    const {register, handleSubmit, formState: { errors}} = useForm({
         defaultValues: {
             name: '',
             balance: '',

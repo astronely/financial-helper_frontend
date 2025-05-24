@@ -6,7 +6,7 @@ export const create = data =>
     axiosInstance.post(noteURL, data);
 
 export const get = (boardID) =>
-    axiosInstance.get(noteURL + "?id=" + boardID)
+    axiosInstance.get(noteURL + "/" + boardID)
 
 export const list = data => {
     // TODO: фильтрацию поиска
@@ -16,7 +16,7 @@ export const complete = data =>
     axiosInstance.post(noteURL, data);
 
 export const del = id =>
-    axiosInstance.delete(noteURL + "?id=" + id);
+    axiosInstance.delete(noteURL + "/" + id);
 
 export const update = data =>
     axiosInstance.put(noteURL, data);

@@ -8,7 +8,7 @@ import '@/features/shared/IconButtons.scss'
 
 // import {useModal} from "../../../../hooks/useModal.js";
 
-export function Transaction({transaction, confirmDelete, setExpenseToDelete}) {
+export function Transaction({transaction,  openModal}) {
     const {setIsActive, setModal} = useModal();
 
     // console.log("Transaction:", transaction.transaction)
@@ -36,7 +36,7 @@ export function Transaction({transaction, confirmDelete, setExpenseToDelete}) {
     // TODO: если transfer - то надо выводить откуда и куда
     return (
         <div className={styles.history__card}>
-            <div className={"history-card__header"}>
+            <div className="history-card__header">
                 <div className="text-with-icon">
                     <div
                         className="history-card__primary-text history-card__operation-date">{transaction.details.info.transactionDate}</div>
@@ -45,17 +45,17 @@ export function Transaction({transaction, confirmDelete, setExpenseToDelete}) {
                 </div>
                 <button className="icon-button icon-button__cross"><CircleX/></button>
             </div>
-            <div className={"history-card__container"}>
-                <div className={"history-card__info"}>
-                    <div className={"history-card__primary-text"}>{transaction.category.name}</div>
+            <div className="history-card__container">
+                <div className="history-card__info">
+                    <div className="history-card__primary-text">{transaction.category.name}</div>
                     <div
-                        className={"history-card__primary-text history-card__shop-name"}>{transaction.details.info.name}</div>
+                        className="history-card__primary-text history-card__shop-name">{transaction.details.info.name}</div>
                 </div>
-                <div className={"history-card__price"}>
+                <div className="history-card__price">
                     <div
-                        className={"history-card__primary-text"}>{transactionType} {transaction.transaction.info.amount} RUB
+                        className="history-card__primary-text">{transactionType} {transaction.transaction.info.amount} RUB
                     </div>
-                    <div className={"history-card__primary-text history-card__wallet-name"}>{walletName}</div>
+                    <div className="history-card__primary-text history-card__wallet-name">{walletName}</div>
                 </div>
             </div>
         </div>

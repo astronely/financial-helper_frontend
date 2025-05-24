@@ -1,87 +1,90 @@
 import {InfoColumn} from "@/components/ui/infoColumn/InfoColumn.jsx";
 import './Transaction.scss'
-import {Transaction} from "./Transaction.jsx";
 import {useEffect, useState} from "react";
 import {TransactionService} from "@/features/transactions/service/transactionService.js";
 import {useParams} from "react-router";
 import {TransactionList} from "@/features/transactions/components/TransactionList.jsx";
 import {useModal} from "@/shared/hooks/useModal.js";
-// import {useModal} from "../../../hooks/useModal.js";
-// import axios from "axios";
-// import {AddExpenseModal} from "./TransactionModal.jsx";
-// import {useApp} from "../../../hooks/useApp.js";
-// import {toast} from "react-toastify";
-// import "../../../utils/modalUtils.js"
-// import {openConfirm, openModal} from "../../../utils/modalUtils.js";
-// import {ConfirmItemDeleteModal} from "../../confirmation/Confirm.jsx";
+import {WalletService} from "@/features/wallets/service/walletSerivce.js";
+import {toast} from "react-toastify";
 
 export function TransactionsLayout() {
-    // const {wallets, updateWallets} = useApp()
-    // const [expenses, setExpenses] = useState([]);
-    // const {setIsActive, setModal, modal} = useModal();
-    // const [expenseToDelete, setExpenseToDelete] = useState('');
-    //
-    // const getExpense = expense => {
-    //     // console.log("getExpense: ", expense)
-    //     setExpenses(expenses => [...expenses, {
-    //         id: expense.ID,
-    //         wallet: expense.Wallet,
-    //         wallet_name: expense.WalletName,
-    //         currency: expense.Currency,
-    //         shop_name: expense.Name,
-    //         category: expense.Category,
-    //         price: expense.Value,
-    //         date: new Date(expense.Date).toISOString().split("T")[0],
-    //     }])
-    // }
-    //
-    // const getExpenses = async () => {
-    //     await axios.get("http://localhost:8080/api/expenses/get_expenses", {withCredentials: true})
-    //         .then(response => {
-    //             setExpenses([])
-    //             // console.log("getExpenses: ", expenses)
-    //             if (response.data.sort(function(a,b) {
-    //                 if (a.Date < b.Date) return 1;
-    //                 if (a.Date > b.Date) return -1;
-    //                 if (a.CreatedAt < b.CreatedAt) return 1;
-    //                 if (a.CreatedAt >= b.CreatedAt) return -1;
-    //                 }))
-    //             {
-    //                 for (let expense of response.data) {
-    //                     getExpense(expense)
-    //                 }
-    //             }
-    //         })
-    //         .catch(error => console.log(error))
-    // }
-    //
-    // const increaseWalletBalance = async data => {
-    //     await axios.put("http://localhost:8080/api/wallets/increase_balance", data,{withCredentials: true})
-    //         .then(() => {
-    //             updateWallets()
-    //         })
-    //         .catch(error => {
-    //             toast.error("Cannot update wallet balance")
-    //             console.log(error.response)
-    //         })
-    // }
-    //
-    //
-    // useEffect(() => {
-    //     const timeout = setTimeout(() => {
-    //         // console.log("Expenses useEffect")
-    //         getExpenses().then()
-    //     }, 10)
-    //
-    //     return () => clearTimeout(timeout)
-    // }, [wallets])
-
     const [transactions, setTransactions] = useState([]);
     const params = useParams()
-    const {updateItems, setUpdateItems} = useModal()
+    const {updateItems, setUpdateItems, setIsActive, setModal, baseInfo, setBaseInfo, setSubmitHandler} = useModal()
 
     const transactionService = new TransactionService();
+    const walletService = new WalletService()
 
+    const handleAddTransaction = async data => {
+        try {
+            console.log(data)
+            const dataToSend = {
+                info: {
+                  fromWalletId: data.from_wallet.value.toString(),
+                  toWalletId: data.to_wallet?.value.toString(),
+                  amount: data.price.trim(),
+                  type: data.type.value.toString()
+                },
+                detailsInfo: {
+                    name: data.shop_name.trim(),
+                    category: data.category.value.toString(),
+                    transactionDate: data.date
+                }
+            }
+            console.log(dataToSend)
+            const response = await transactionService.create(dataToSend)
+            console.log(response)
+            setUpdateItems(!updateItems)
+            setIsActive(false)
+
+        } catch (err) {
+            toast.error("Не удалось добавить операцию, проверьте поля")
+            console.error("Не удалось добавить операцию: " + err)
+        }
+    }
+
+    const handleDeleteTransaction = async ({id, name}) => {
+        try {
+            console.log("Handle delete transaction: " + id + ":" + name)
+            const response = await transactionService.delete(id)
+            setUpdateItems(!updateItems)
+            setIsActive(false)
+        } catch (error) {
+            console.error("Не удалось удалить операцию: " + error)
+        }
+    }
+
+    function openModal(modalName, transactionID, transactionName) {
+        setIsActive(true)
+        setModal(modalName)
+
+        if (modalName === "addTransaction") {
+            walletService.list(params.id)
+                .then(res => {
+                    // console.log(res.wallets)
+                    setBaseInfo(prev => ({...prev, wallets: res.wallets}))
+                    setSubmitHandler(() => handleAddTransaction)
+                })
+                .catch(err => console.error("Ошибка получения списка доступных кошельков: " + err))
+
+            transactionService.getCategories()
+                .then(res => {
+                    // console.log(res.categories)
+                    setBaseInfo(prev => ({...prev, categories: res.categories}))
+                })
+                .catch(err => console.error("Ошибка получения списка доступных категорий: " + err))
+
+        } else if (modalName === "updateTransaction") {
+            // setBaseInfo({name: walletName})
+            // setSubmitHandler(() => (data) => handleChangeWallet({...data, id: walletID}))
+        } else if (modalName === "confirm") {
+            setBaseInfo({name: transactionName})
+            setSubmitHandler(() => (data) =>
+                handleDeleteTransaction({...data, id: transactionID, name: transactionName})
+            )
+        }
+    }
 
     useEffect(() => {
         transactionService.list(params.id)
@@ -94,11 +97,11 @@ export function TransactionsLayout() {
 
     return (
         <InfoColumn>
-            <div className={'column__title'}>Совершенные операции</div>
-            <div className={'history'}>
-                <TransactionList transactions={transactions}/>
+            <div className='column__title'>Совершенные операции</div>
+            <div className='history'>
+                <TransactionList transactions={transactions} openModal={openModal}/>
             </div>
-            <button className={"primary-button"}> Добавить </button>
+            <button onClick={() => openModal('addTransaction')} className={"primary-button"}> Добавить </button>
         </InfoColumn>
     )
 }

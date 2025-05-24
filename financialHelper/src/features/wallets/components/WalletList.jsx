@@ -5,9 +5,9 @@ export function WalletList({wallets, openModal}) {
     //             key={index}/>
 
     return (
-        <div className={'wallets'}>
+        <div className='wallets'>
             <div className={'wallets__title'}>Кошельки</div>
-            <div className={'wallets__cards'}>
+            <div className='wallets__cards'>
                 {wallets.map((wallet, index) => (
                     <Wallet wallet={wallet} openModal={openModal} key={index}/>
                 ))}

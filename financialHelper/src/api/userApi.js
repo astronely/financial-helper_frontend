@@ -6,4 +6,4 @@ export const create = (userInfo) =>
     axiosInstance.post(userURL + '/create', userInfo);
 
 export const get = (userID) =>
-    axiosInstance.get(userURL + '?id=' + userID);
+    axiosInstance.get(userURL + '/' + userID);

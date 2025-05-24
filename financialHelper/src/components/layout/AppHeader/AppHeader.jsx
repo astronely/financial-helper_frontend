@@ -1,16 +1,20 @@
 import './Header.scss'
 import {Container, Nav, Navbar} from 'react-bootstrap';
-import React from "react";
-import {useLoaderData, useNavigate} from "react-router-dom";
+import React, {useState} from "react";
+import {useLoaderData, useMatch, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {UserService} from "@/features/users/service/userService.js";
 import {BoardService} from "@/features/boards/service/boardService.js";
 import {useModal} from "@/shared/hooks/useModal.js";
+import {useLocation} from "react-router";
+import axiosInstance from "@/api/httpClient/axiosInstance.js";
 
 
 export function AppHeader() {
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+    const BASE_URL = import.meta.env.VITE_BASE_URL;
+    const match = useMatch('/board/:id')
 
     const  {setIsActive, setModal, setBaseInfo} = useModal();
     // const usernameFromLoader = useLoaderData()
@@ -34,15 +38,10 @@ export function AppHeader() {
         setModal(modalName)
 
         if (modalName === 'invite') {
-            // TODO: отправлять ничего, все должно доставаться из куки
-            const dataToSend = {
-                boardID: '1',
-                userID: localStorage.getItem('userID')
-            }
-            boardService.invite(dataToSend)
+            boardService.invite()
                 .then(res => {
                     console.log(res.url)
-                    setBaseInfo({inviteUrl: BASE_URL + "/api/v1/board/join?token=" + res.url})
+                    setBaseInfo({inviteUrl: BASE_URL + "/invite/" + res.url})
                 })
                 .catch(err => console.error("Ошибка получения ссылки приглашения: " + err))
         }
@@ -58,10 +57,14 @@ export function AppHeader() {
                     <Nav className="me-auto">
                         <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate("/")}>Главная</Nav.Link>
                         {/*// TODO: записки*/}
-                        <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate("/notes/:id")}>Заметки</Nav.Link>
-                        <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => openModal('invite')}>Пригласить</Nav.Link>
-                        {/*<Nav.Link className='nav-link nav-text' href="#">Добавить</Nav.Link>*/}
-                        {/*<Nav.Link className='nav-link nav-text' href="#">Просмотреть расходы</Nav.Link>*/}
+                        {match ?
+                            <>
+                                <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate("/notes/:id")}>Заметки</Nav.Link>
+                                <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => openModal('invite')}>Пригласить</Nav.Link>
+                            </>
+                        :
+                            <></>
+                        }
                     </Nav>
                     <div className="header-right">
                         <div className="nav-text">{username}!</div>

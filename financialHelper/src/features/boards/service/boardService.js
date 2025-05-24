@@ -17,19 +17,20 @@ export class BoardService {
 
     async listByUserId() {
         // if (!data.userID) throw new Error('All fields are required')
+        console.log("IN SERVICE")
         return await this.repo.listByUserID()
     }
 
     async create(data) {
-        if (!data.name || !data.description || !data.ownerID) throw new Error('All fields are required')
-        return await this.repo.create(ToCreateBoard(data))
+        if (!data.name || !data.description) throw new Error('All fields are required')
+        return await this.repo.create(data)
     }
 
     async set(data) {
         return await this.repo.set(data)
     }
 
-    async invite(data) {
-        return await this.repo.invite(data)
+    async invite() {
+        return await this.repo.invite()
     }
 }

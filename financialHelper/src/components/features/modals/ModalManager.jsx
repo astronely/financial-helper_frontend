@@ -5,6 +5,8 @@ import {AddWallet} from "@/components/features/modals/wallet/AddWallet.jsx";
 import {UpdateWallet} from "@/components/features/modals/wallet/UpdateWallet.jsx";
 import {ConfirmDelete} from "@/components/features/modals/shared/Confirm.jsx";
 import {Invite} from "@/components/features/modals/board/Invite.jsx";
+import {AddBoard} from "@/components/features/modals/board/AddBoard.jsx";
+import {AddTransaction} from "@/components/features/modals/transaction/AddTransaction.jsx";
 
 export function ModalManager() {
     const {modal} = useModal();
@@ -12,10 +14,15 @@ export function ModalManager() {
         <>
             <SignIn open={modal === 'signIn'}/>
             <SignUp open={modal === 'signUp'}/>
+            <ConfirmDelete open={modal === 'confirm'}/>
+
             <AddWallet open={modal === 'addWallet'}/>
             <UpdateWallet open={modal === 'updateWallet'}/>
-            <ConfirmDelete open={modal === 'confirm'}/>
+
             <Invite open={modal === 'invite'}/>
+            <AddBoard open={modal === 'addBoard'}/>
+
+            <AddTransaction open={modal === 'addTransaction'}/>
         </>
     )
 }

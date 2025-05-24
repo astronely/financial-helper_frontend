@@ -26,8 +26,8 @@ export class BoardRepository {
         return response;
     }
 
-    async invite(data) {
-        const response = await invite(data);
+    async invite() {
+        const response = await invite();
         return response;
     }
 }
