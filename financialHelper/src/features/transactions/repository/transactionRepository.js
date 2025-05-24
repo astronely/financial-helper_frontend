@@ -1,5 +1,4 @@
-import {add, categories, get, list, update} from "@/api/transactionApi.js";
-import {del} from "@/api/noteApi.js";
+import {add, categories, get, list, update, del} from "@/api/transactionApi.js";
 
 export class TransactionRepository {
     async get(walletID) {

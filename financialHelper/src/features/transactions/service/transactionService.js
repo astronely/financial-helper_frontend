@@ -21,4 +21,9 @@ export class TransactionService {
         const response = await this.repo.create(data)
         return response
     }
+
+    async delete(id) {
+        const response = await this.repo.delete(id)
+        return response
+    }
 }

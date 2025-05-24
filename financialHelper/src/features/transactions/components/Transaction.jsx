@@ -39,11 +39,12 @@ export function Transaction({transaction,  openModal}) {
             <div className="history-card__header">
                 <div className="text-with-icon">
                     <div
-                        className="history-card__primary-text history-card__operation-date">{transaction.details.info.transactionDate}</div>
+                        className="history-card__primary-text history-card__operation-date">{transaction.details.info.transactionDate.split('T')[0]}</div>
                     <button
                         className="icon-button icon-button__pen"><Pen/></button>
                 </div>
-                <button className="icon-button icon-button__cross"><CircleX/></button>
+                <button onClick={() => openModal('confirm', transaction.transaction.id, transaction.details.info.name)}
+                        className="icon-button icon-button__cross"><CircleX/></button>
             </div>
             <div className="history-card__container">
                 <div className="history-card__info">
@@ -55,7 +56,7 @@ export function Transaction({transaction,  openModal}) {
                     <div
                         className="history-card__primary-text">{transactionType} {transaction.transaction.info.amount} RUB
                     </div>
-                    <div className="history-card__primary-text history-card__wallet-name">{walletName}</div>
+                    <div className="history-card__primary-text history-card__wallet-name">{walletName} {transaction.transaction.info.type === 'transfer' ? "-> " + transaction.transaction.info.toWalletId : ""}</div>
                 </div>
             </div>
         </div>

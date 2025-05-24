@@ -90,6 +90,7 @@ export function TransactionsLayout() {
         transactionService.list(params.id)
             .then(res => {
                 // console.log("Transactions: ", res)
+                setTransactions([])
                 setTransactions(res.transactions)
             })
             .catch(err => console.error("Error get list transactions: ", err))
