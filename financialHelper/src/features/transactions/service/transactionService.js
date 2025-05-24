@@ -12,6 +12,12 @@ export class TransactionService {
         return response
     }
 
+    async listFilter(boardId, queryParams) {
+        if (!boardId) throw new Error('All fields are required')
+        console.log(boardId + queryParams)
+        return await this.repo.listFilter(boardId, queryParams)
+    }
+
     async getCategories() {
         const response = await this.repo.getCategories()
         return response

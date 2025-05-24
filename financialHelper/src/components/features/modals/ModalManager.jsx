@@ -7,6 +7,7 @@ import {ConfirmDelete} from "@/components/features/modals/shared/Confirm.jsx";
 import {Invite} from "@/components/features/modals/board/Invite.jsx";
 import {AddBoard} from "@/components/features/modals/board/AddBoard.jsx";
 import {AddTransaction} from "@/components/features/modals/transaction/AddTransaction.jsx";
+import {FilterTransaction} from "@/components/features/modals/transaction/FilterTransaction.jsx";
 
 export function ModalManager() {
     const {modal} = useModal();
@@ -23,6 +24,7 @@ export function ModalManager() {
             <AddBoard open={modal === 'addBoard'}/>
 
             <AddTransaction open={modal === 'addTransaction'}/>
+            <FilterTransaction open={modal === 'filterTransaction'}/>
         </>
     )
 }

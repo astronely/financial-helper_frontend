@@ -1,4 +1,4 @@
-import {add, categories, get, list, update, del} from "@/api/transactionApi.js";
+import {add, categories, get, list, listFilter, update, del} from "@/api/transactionApi.js";
 
 export class TransactionRepository {
     async get(walletID) {
@@ -8,6 +8,11 @@ export class TransactionRepository {
 
     async list(boardID) {
         const response  = await list(boardID);
+        return response;
+    }
+
+    async listFilter(boardId, queryParams) {
+        const response = await listFilter(boardId, queryParams);
         return response;
     }
 

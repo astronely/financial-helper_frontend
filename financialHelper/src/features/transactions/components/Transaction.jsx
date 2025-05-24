@@ -17,6 +17,7 @@ export function Transaction({transaction,  openModal}) {
 
     const walletService = new WalletService();
     const [walletName, setWalletName] = useState("");
+    const [toWalletName, setToWalletName] = useState("");
     let transactionType = ""
     if (transaction.transaction.info.type === "income") {
         transactionType = "+"
@@ -30,7 +31,14 @@ export function Transaction({transaction,  openModal}) {
                 // console.log("From useEffect get wallet", res)
                 setWalletName(res.wallet.info.name)
             })
-            .catch(err => console.error("Error get wallet info: ", err))
+            .catch(err => console.error("Error get from_wallet info: ", err))
+        if (transaction.transaction.info.toWalletId) {
+            walletService.get(transaction.transaction.info.toWalletId)
+                .then(res => {
+                    setToWalletName(res.wallet.info.name)
+                })
+                .catch(err => console.error("Error get to_wallet info: ", err))
+        }
     }, [])
 
     // TODO: если transfer - то надо выводить откуда и куда
@@ -56,7 +64,7 @@ export function Transaction({transaction,  openModal}) {
                     <div
                         className="history-card__primary-text">{transactionType} {transaction.transaction.info.amount} RUB
                     </div>
-                    <div className="history-card__primary-text history-card__wallet-name">{walletName} {transaction.transaction.info.type === 'transfer' ? "-> " + transaction.transaction.info.toWalletId : ""}</div>
+                    <div className="history-card__primary-text history-card__wallet-name">{walletName} {transaction.transaction.info.type === 'transfer' ? "-> " + toWalletName : ""}</div>
                 </div>
             </div>
         </div>

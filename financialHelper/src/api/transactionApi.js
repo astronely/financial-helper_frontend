@@ -6,7 +6,10 @@ export const get = (transactionID) =>
     axiosInstance.get(transactionURL + '/' + transactionID);
 
 export const list = (boardID) =>
-    axiosInstance.get(transactionURL + 's' + '/' + boardID)
+    axiosInstance.get(transactionURL + 's/' + boardID)
+
+export const listFilter = (boardID, queryParams) =>
+    axiosInstance.get(transactionURL + 's/' + boardID + queryParams)
 
 export const add = (data) =>
     axiosInstance.post(transactionURL, data);

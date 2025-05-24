@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   padding: 10px 10px;
-  gap: 16px;
+  gap: 1rem;
   background-color: #f0f0f0;
   border-radius: 5px;
 
@@ -13,11 +13,34 @@
     color: #3C3C3C;
 
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    padding: 0 8px;
+    padding: 8px 8px 0;
     background-color: rgba(0, 187, 130, 0.2);
     border: 1px solid rgba(60, 60, 60, 0.15);
     border-radius: 5px;
+
+    &-top {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &-div {
+      //height: 3px;
+      width: 100%;
+      background-color: var(--green-icon-active);
+      border-radius: 1rem;
+      margin-top: 0.25rem;
+      opacity: 0;
+      height: 0;
+
+      transition: all 0.2s ease;
+      &-visible {
+        height: 3px;
+        opacity: 1;
+      }
+    }
   }
 
   &__cards {
@@ -49,6 +72,40 @@
   &__cards::-webkit-scrollbar-thumb:hover {
     transition: 0.5s ease;
     background-color: rgba(100, 100, 100, 0.7); /* Подсветка при наведении */
+  }
+
+  &__filters {
+    display: flex;
+    flex-direction: column;
+    font-family: "Montserrat Alternates", serif;
+    padding: 2px 0;
+    opacity: 0;
+    max-height: 0;
+    transition: all 0.2s ease;
+
+    &-title {
+      //margin: 0.33rem;
+    }
+
+    &-list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+
+    &-visible {
+      opacity: 1;
+      max-height: none;
+    }
+  }
+
+  &__filter {
+    background-color: var(--green-icon-active);
+    border-radius: 1rem;
+    padding: 0.33rem;
+    font-family: "Montserrat Alternates", serif;
+    font-size: 0.75rem;
   }
 }
 
