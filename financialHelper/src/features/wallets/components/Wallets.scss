@@ -53,8 +53,18 @@
 
 /* xs */
 @media (min-width: 0px) {
+  .wallets {
+    padding: 0;
+  }
   .wallets__title {
-    font-size: 14px;
+    font-size: 12px;
+    padding: 4px;
+  }
+
+  .wallet {
+    &__info {
+      gap: 0;
+    }
   }
 }
 

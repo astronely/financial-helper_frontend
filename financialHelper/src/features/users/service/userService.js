@@ -18,4 +18,9 @@ export class UserService {
         if (!data.email || !data.name || !data.password) throw new Error('All fields are required')
         return await this.repo.register(data);
     }
+
+    async get(id) {
+        if (!id) throw new Error('All fields are required')
+        return await this.repo.getUser(id)
+    }
 }

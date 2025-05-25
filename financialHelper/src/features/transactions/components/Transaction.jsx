@@ -48,7 +48,16 @@ export function Transaction({transaction,  openModal}) {
                 <div className="text-with-icon">
                     <div
                         className="history-card__primary-text history-card__operation-date">{transaction.details.info.transactionDate.split('T')[0]}</div>
-                    <button
+                    <button onClick={() => openModal('updateTransaction', transaction.id, transaction.details.info.name,
+                        {
+                            id: transaction.transaction.id,
+                            name: transaction.details.info.name,
+                            fromWalletId: transaction.transaction.info.fromWalletId,
+                            toWalletId: transaction.transaction.info.toWalletId,
+                            amount: transaction.transaction.info.amount,
+                            type: transaction.transaction.info.type,
+                            category: transaction.details.info.category,
+                        })}
                         className="icon-button icon-button__pen"><Pen/></button>
                 </div>
                 <button onClick={() => openModal('confirm', transaction.transaction.id, transaction.details.info.name)}

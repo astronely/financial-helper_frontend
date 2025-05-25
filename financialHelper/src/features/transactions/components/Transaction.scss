@@ -50,7 +50,7 @@
     padding: 0.25rem 0.25rem;
     gap: 24px;
 
-    max-height: calc(73vh - var(--header-height));
+    max-height: calc(60vh - var(--header-height));
     overflow-y: auto;
   }
 
@@ -75,17 +75,13 @@
   }
 
   &__filters {
-    display: flex;
+    display: none;
     flex-direction: column;
     font-family: "Montserrat Alternates", serif;
     padding: 2px 0;
     opacity: 0;
     max-height: 0;
     transition: all 0.2s ease;
-
-    &-title {
-      //margin: 0.33rem;
-    }
 
     &-list {
       display: flex;
@@ -95,6 +91,7 @@
     }
 
     &-visible {
+      display: flex;
       opacity: 1;
       max-height: none;
     }
@@ -114,6 +111,7 @@
   .history {
     &__header {
       font-size: 14px;
+      padding: 4px 4px 0 4px;
     }
     &__cards {
       gap: 12px

@@ -33,4 +33,20 @@ export class BoardService {
     async invite() {
         return await this.repo.invite()
     }
+
+    async update(data) {
+        return await this.repo.update(data)
+    }
+
+    async delete(id) {
+        return await this.repo.delete(id)
+    }
+
+    async getBoardUsers(boardID) {
+        return await this.repo.boardUsers(boardID)
+    }
+
+    async deleteUser(userID) {
+        return await this.repo.deleteUser(userID)
+    }
 }

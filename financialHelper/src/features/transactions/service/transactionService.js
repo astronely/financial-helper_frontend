@@ -28,6 +28,11 @@ export class TransactionService {
         return response
     }
 
+    async update(data) {
+        const response = await this.repo.update(data)
+        return response
+    }
+
     async delete(id) {
         const response = await this.repo.delete(id)
         return response

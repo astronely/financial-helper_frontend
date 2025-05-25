@@ -7,7 +7,6 @@
   align-items: center;
   align-content: center;
   padding: 2rem 2rem;
-  width: 256px;
 
   background-color: var(--green);
   transition: linear;
@@ -15,6 +14,25 @@
 
   font-family: 'Montserrat Alternates', 'serif';
   color: var(--card-text-color);
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+  }
+
+  &__card > article.board {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+  }
 
   &__list {
     display: flex;

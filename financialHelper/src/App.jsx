@@ -5,6 +5,9 @@ import {BoardsPage} from "@/pages/boards/BoardsPage.jsx";
 import {BoardPage} from "@/pages/board/BoardPage.jsx";
 import {ProtectedRouter} from "@/features/protectedRouter/ProtectedRouter.jsx";
 import {InviteHandler} from "@/features/inviteHandler/InviteHandler.jsx";
+import {NotesPage} from "@/pages/notes/NotesPage.jsx";
+import {ProfilePage} from "@/pages/profile/ProfilePage.jsx";
+import {BoardUsersPage} from "@/pages/boardUsers/BoardUsers.jsx";
 
 const router = createBrowserRouter([
     {
@@ -21,6 +24,18 @@ const router = createBrowserRouter([
           {
               path: "/board/:id",
               element: <BoardPage />
+          },
+          {
+              path: "/board/:id/notes",
+              element: <NotesPage />
+          },
+          {
+              path: "/profile",
+              element: <ProfilePage />
+          },
+          {
+              path: "/board/:id/users",
+              element: <BoardUsersPage />
           }
       ]
     },

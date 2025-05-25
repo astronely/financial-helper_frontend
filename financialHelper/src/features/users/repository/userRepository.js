@@ -4,8 +4,8 @@ import {ToCreateUser, ToLogin, ToUser} from "@/api/models/user.js";
 
 export class UserRepository {
     async getUser(userID) {
-        const { data } = await get(userID)
-        return ToUser(data)
+        const data = await get(userID)
+        return data
     }
 
     async login(data) {

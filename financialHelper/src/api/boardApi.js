@@ -28,4 +28,10 @@ export const join = token =>
     axiosInstance.get(boardURL + '/join/' + token)
 
 export const getUsers = boardID =>
-    axiosInstance.get(boardURL + '/users?boardId=' + boardID);
+    axiosInstance.get(boardURL + '/users/' + boardID);
+
+export const del = boardID =>
+    axiosInstance.delete(boardURL + '/' + boardID)
+
+export const deleteUser = userID =>
+    axiosInstance.delete(boardURL + '/delete/user/' + userID)

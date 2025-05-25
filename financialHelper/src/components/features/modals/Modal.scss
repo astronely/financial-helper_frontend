@@ -47,6 +47,17 @@
   transition: border-color 0.2s;
 }
 
+.modal__textarea {
+  color: #3C3C3C;
+  font-family: "Montserrat Alternates", serif;
+  padding: 2px 5px;
+  background-color: #D8FFFE;
+  border-radius: 5px;
+  border: 1px solid #00BB82;
+  transition: border-color 0.2s;
+  height: 20vh;
+}
+
 .modal__error {
   border-color: #cc2b1a;
   border-width: 1px;

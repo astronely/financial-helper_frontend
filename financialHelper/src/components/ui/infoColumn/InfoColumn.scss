@@ -3,7 +3,6 @@
   align-content: center;
   flex-direction: column;
   gap: 0.5rem;
-  width: 25%;
 }
 
 .column__title {
@@ -19,14 +18,20 @@
 
 /* xs */
 @media (min-width: 0px) {
+  .info-column {
+    width: 50%;
+  }
   .column__title {
-    font-size: 18px;
+    font-size: 1rem;
   }
 }
 
 /* lg */
 @media (min-width: 992px) {
+  .info-column {
+    width: 33%;
+  }
  .column__title {
-   font-size: 24px;
+   font-size: 1.5rem;
  }
 }

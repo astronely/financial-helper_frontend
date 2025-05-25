@@ -46,12 +46,48 @@ export function BoardList() {
         }
     }
 
-    function openModal(modalName) {
+    const handleUpdateBoard = async data => {
+        try {
+            // console.log(data)
+            const dataToSend = {
+                id: data.id,
+                name: data.name.trim(),
+                description: data.description.trim(),
+            }
+            console.log(dataToSend)
+            const response = await boardService.update(dataToSend)
+            setUpdateItems(!updateItems)
+            setIsActive(false)
+        } catch (err) {
+            console.error("Не удалось изменить доску: " + err)
+        }
+    }
+
+    const handleDeleteBoard = async ({data, id}) => {
+        try {
+            console.log(id)
+            const response = await boardService.delete(id)
+            setUpdateItems(!updateItems)
+            setIsActive(false)
+        } catch (err) {
+            console.error("Не удалось удалить доску: " + err)
+        }
+    }
+
+    function openModal(modalName, data) {
         setIsActive(true)
         setModal(modalName)
 
         if (modalName === "addBoard") {
             setSubmitHandler(() => handleAddBoard)
+        } else if (modalName === "updateBoard") {
+            setBaseInfo({id: data.id, name: data.name, description: data.description})
+            setSubmitHandler(() => handleUpdateBoard)
+        } else if (modalName === "confirm") {
+            setBaseInfo({name: data.name})
+            setSubmitHandler(() => (dataNew) =>
+                handleDeleteBoard({...dataNew, id: data.id})
+            )
         }
     }
 
@@ -71,7 +107,7 @@ export function BoardList() {
             <h1 className='board__title'>Доски</h1>
             <Container className='board__list'>
                 {boards.map((data, index) => (
-                    <Board id={data.id} data={data.info} clickFunc={setBoard} key={index}/>
+                    <Board id={data.id} data={data.info} clickFunc={setBoard} openModal={openModal} key={data.id}/>
                 ))}
                 <article
                     className='board board__add'

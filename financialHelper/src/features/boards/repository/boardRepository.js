@@ -1,4 +1,5 @@
-import {listByUserID, get, create, setBoard, invite} from "@/api/boardApi.js";
+import {listByUserID, get, create, setBoard, invite, update, del, deleteUser, getUsers} from "@/api/boardApi.js";
+import {data} from "react-router";
 
 export class BoardRepository {
     async listByUserID() {
@@ -28,6 +29,26 @@ export class BoardRepository {
 
     async invite() {
         const response = await invite();
+        return response;
+    }
+
+    async update(data) {
+        const response = await update(data);
+        return response;
+    }
+
+    async delete(id) {
+        const response = await del(id);
+        return response;
+    }
+
+    async boardUsers(boardID) {
+        const response = await getUsers(boardID);
+        return response;
+    }
+
+    async deleteUser(userID) {
+        const response = await deleteUser(userID);
         return response;
     }
 }

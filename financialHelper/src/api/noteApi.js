@@ -5,15 +5,17 @@ const noteURL = '/api/v1/note'
 export const create = data =>
     axiosInstance.post(noteURL, data);
 
-export const get = (boardID) =>
-    axiosInstance.get(noteURL + "/" + boardID)
+export const get = (noteID) =>
+    axiosInstance.get(noteURL + "/" + noteID)
 
-export const list = data => {
-    // TODO: фильтрацию поиска
-}
+export const list = (boardID) =>
+    axiosInstance.get(noteURL + "s/" + boardID)
+
+export const listFilter = (boardID, queryParams) =>
+    axiosInstance.get(noteURL + "s/" + boardID + queryParams)
 
 export const complete = data =>
-    axiosInstance.post(noteURL, data);
+    axiosInstance.post(noteURL + "/complete", data);
 
 export const del = id =>
     axiosInstance.delete(noteURL + "/" + id);

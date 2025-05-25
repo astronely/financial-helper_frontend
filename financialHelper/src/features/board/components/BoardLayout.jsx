@@ -1,12 +1,13 @@
 import {WalletsLayout} from "@/features/wallets/components/WalletsLayout.jsx";
 import {TransactionsLayout} from "@/features/transactions/components/TransactionsLayout.jsx";
+import {Container} from "react-bootstrap"
 import "./Board.scss"
 
 export function BoardLayout() {
     return (
-        <div className="board__container opacity_animation">
+        <Container className="board__container opacity_animation">
             <WalletsLayout />
             <TransactionsLayout />
-        </div>
+        </Container>
     )
 }

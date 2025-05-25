@@ -21,7 +21,7 @@ export function TransactionsLayout() {
 
     const handleAddTransaction = async data => {
         try {
-            console.log(data)
+            // console.log(data)
             const dataToSend = {
                 info: {
                   fromWalletId: data.from_wallet.value.toString(),
@@ -35,9 +35,9 @@ export function TransactionsLayout() {
                     transactionDate: data.date
                 }
             }
-            console.log(dataToSend)
+            // console.log(dataToSend)
             const response = await transactionService.create(dataToSend)
-            console.log(response)
+            // console.log(response)
             setUpdateItems(!updateItems)
             setIsActive(false)
 
@@ -47,9 +47,33 @@ export function TransactionsLayout() {
         }
     }
 
+    const handleUpdateTransaction = async data => {
+        try {
+            // console.log("Handle Update Transaction")
+            // console.log(data)
+            const dataToSend = {
+                id: data.id,
+                info: {
+                    name: data.name.trim(),
+                    amount: data.amount.trim(),
+                    fromWalletId: data.fromWalletId.value.toString(),
+                    toWalletId: data.type.value.toString() === 'transfer' ? data.toWalletId.value.toString() : null,
+                    type: data.type.value.toString(),
+                    category: data.category.value.toString(),
+                }
+            }
+            const response = await transactionService.update(dataToSend)
+            // console.log(response)
+            setUpdateItems(!updateItems)
+            setIsActive(false)
+        } catch (err) {
+            console.error("Не удалось обновить операцию: " + err)
+        }
+    }
+
     const handleDeleteTransaction = async ({id, name}) => {
         try {
-            console.log("Handle delete transaction: " + id + ":" + name)
+            // console.log("Handle delete transaction: " + id + ":" + name)
             const response = await transactionService.delete(id)
             setUpdateItems(!updateItems)
             setIsActive(false)
@@ -73,15 +97,6 @@ export function TransactionsLayout() {
                     }
                 }
             }
-            // if (data.category != null) {
-            //    filtersQuery += "filterInfo.category=" + data.category.value.toString() + "&"
-            // }
-            // if (data.fromWalletId != null) {
-            //     filtersQuery += "filterInfo.fromWalletId=" + data.fromWalletId.value.toString() + "&"
-            // }
-            // if (data.transactionDate != null) {
-            //     filtersQuery += "filterInfo.transactionDate=" + data.transactionDate.toString() + "&"
-            // }
 
             if (filtersQuery.endsWith("&")) {
                 filtersQuery = filtersQuery.slice(0, -1);
@@ -93,46 +108,65 @@ export function TransactionsLayout() {
         }
     }
 
-    function openModal(modalName, transactionID, transactionName) {
+    function openModal(modalName, transactionID, transactionName, transactionData) {
         setIsActive(true)
         setModal(modalName)
-        if (modalName === "addTransaction") {
-            walletService.list(params.id)
-                .then(res => {
-                    // console.log(res.wallets)
-                    setBaseInfo(prev => ({...prev, wallets: res.wallets}))
-                    setSubmitHandler(() => handleAddTransaction)
-                })
-                .catch(err => console.error("Ошибка получения списка доступных кошельков: " + err))
+        switch (modalName) {
+            case "addTransaction":
+                walletService.list(params.id)
+                    .then(res => {
+                        // console.log(res.wallets)
+                        setBaseInfo(prev => ({...prev, wallets: res.wallets}))
+                        setSubmitHandler(() => handleAddTransaction)
+                    })
+                    .catch(err => console.error("Ошибка получения списка доступных кошельков: " + err))
 
-            transactionService.getCategories()
-                .then(res => {
-                    // console.log(res.categories)
-                    setBaseInfo(prev => ({...prev, categories: res.categories}))
-                })
-                .catch(err => console.error("Ошибка получения списка доступных категорий: " + err))
-        } else if (modalName === "updateTransaction") {
-            // setBaseInfo({name: walletName})
-            // setSubmitHandler(() => (data) => handleChangeWallet({...data, id: walletID}))
-        } else if (modalName === "confirm") {
-            setBaseInfo({name: transactionName})
-            setSubmitHandler(() => (data) =>
-                handleDeleteTransaction({...data, id: transactionID, name: transactionName})
-            )
-        } else if (modalName === "filterTransaction") {
-            walletService.list(params.id)
-                .then(res => {
-                    setBaseInfo(prev => ({...prev, wallets: res.wallets}))
-                    setSubmitHandler(() => handleFilterTransactions)
-                })
-                .catch(err => console.error("Ошибка получения списка доступных кошельков: " + err))
+                transactionService.getCategories()
+                    .then(res => {
+                        // console.log(res.categories)
+                        setBaseInfo(prev => ({...prev, categories: res.categories}))
+                    })
+                    .catch(err => console.error("Ошибка получения списка доступных категорий: " + err))
+                break;
 
-            transactionService.getCategories()
-                .then(res => {
-                    setBaseInfo(prev => ({...prev, categories: res.categories}))
-                })
-                .catch(err => console.error("Ошибка получения списка доступных категорий: " + err))
+            case "updateTransaction":
+                walletService.list(params.id)
+                    .then(res => {
+                        setBaseInfo(prev => ({...prev, wallets: res.wallets}))
+                    })
+                    .catch(err => console.error("Ошибка получения списка доступных кошельков: " + err))
 
+                transactionService.getCategories()
+                    .then(res => {
+                        // console.log(res.categories)
+                        setBaseInfo(prev => ({...prev, categories: res.categories}))
+                    })
+                    .catch(err => console.error("Ошибка получения списка доступных категорий: " + err))
+                setBaseInfo(prev => ({...prev, data: transactionData}))
+                setSubmitHandler(() => handleUpdateTransaction)
+                break;
+
+            case "confirm":
+                setBaseInfo({name: transactionName})
+                setSubmitHandler(() => (data) =>
+                    handleDeleteTransaction({...data, id: transactionID, name: transactionName})
+                )
+                break;
+
+            case "filterTransaction":
+                walletService.list(params.id)
+                    .then(res => {
+                        setBaseInfo(prev => ({...prev, wallets: res.wallets}))
+                        setSubmitHandler(() => handleFilterTransactions)
+                    })
+                    .catch(err => console.error("Ошибка получения списка доступных кошельков: " + err))
+
+                transactionService.getCategories()
+                    .then(res => {
+                        setBaseInfo(prev => ({...prev, categories: res.categories}))
+                    })
+                    .catch(err => console.error("Ошибка получения списка доступных категорий: " + err))
+                break;
         }
     }
 
@@ -150,16 +184,6 @@ export function TransactionsLayout() {
     return (
         <InfoColumn>
             <div className='column__title'>Совершенные операции</div>
-            {/*<div className={`history__filters ${usedParams.length > 0 ? 'history__filters-visible' : ''}`}>*/}
-            {/*    <span className='history__filters-title'>Активные фильтры</span>*/}
-            {/*    <div className="history__filters-list">*/}
-            {/*        {usedParams.map((item) => (*/}
-            {/*            <div className='history__filter'>{item}</div>*/}
-            {/*        ))}*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-
-
             <div className='history'>
                 <TransactionList transactions={transactions} usedParams={usedParams} openModal={openModal}/>
             </div>

@@ -7,14 +7,18 @@ import {toast} from "react-toastify";
 import {UserService} from "@/features/users/service/userService.js";
 import {BoardService} from "@/features/boards/service/boardService.js";
 import {useModal} from "@/shared/hooks/useModal.js";
-import {useLocation} from "react-router";
+import {useLocation, useParams} from "react-router";
 import axiosInstance from "@/api/httpClient/axiosInstance.js";
 
 
 export function AppHeader() {
     const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
     const BASE_URL = import.meta.env.VITE_BASE_URL;
-    const match = useMatch('/board/:id')
+    const matchBoard = useMatch('/board/:id')
+    const matchNotes = useMatch('/board/:id/notes')
+    const matchUsers = useMatch('/board/:id/users')
+    const matchProfile = useMatch('/profile')
+    const params = useParams();
 
     const  {setIsActive, setModal, setBaseInfo} = useModal();
     // const usernameFromLoader = useLoaderData()
@@ -56,18 +60,45 @@ export function AppHeader() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate("/")}>Главная</Nav.Link>
-                        {/*// TODO: записки*/}
-                        {match ?
+                        <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate("/boards")}>Доски</Nav.Link>
+                        {matchBoard ?
                             <>
-                                <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate("/notes/:id")}>Заметки</Nav.Link>
+                                <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate("notes")}>Заметки</Nav.Link>
+                                <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate("users")}>Пользователи</Nav.Link>
                                 <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => openModal('invite')}>Пригласить</Nav.Link>
                             </>
                         :
                             <></>
                         }
+                        {matchNotes ?
+                            <>
+                                <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate(`/board/${params.id}`)}>Финансы</Nav.Link>
+                                <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate(`/board/${params.id}/users`)}>Пользователи</Nav.Link>
+                                <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => openModal('invite')}>Пригласить</Nav.Link>
+
+                            </>
+                            :
+                            <></>
+                        }
+                        {matchUsers ?
+                            <>
+                                <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate(`/board/${params.id}`)}>Финансы</Nav.Link>
+                                <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate(`/board/${params.id}/notes`)}>Заметки</Nav.Link>
+                                <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => openModal('invite')}>Пригласить</Nav.Link>
+                            </>
+                            :
+                            <></>
+                        }
+                        {matchProfile ?
+                            <>
+                                <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate(`/boards`)}>Доски</Nav.Link>
+                            </>
+                            :
+                            <></>
+                        }
                     </Nav>
                     <div className="header-right">
-                        <div className="nav-text">{username}!</div>
+                        <Nav.Link onClick={() => navigate('/profile')} className="nav-text">{username}!</Nav.Link>
                         <button className="primary-button btn-navigation nav-text" type="submit"
                                 onClick={() => logout()}>Выйти
                         </button>

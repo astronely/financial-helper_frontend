@@ -14,5 +14,18 @@
   }
 }
 
+/* xs */
+@media (min-width: 0px) {
+  .wallet__card {
+    padding: 4px;
+  }
+}
+
+/* lg */
+@media (min-width: 992px) {
+  .wallet__card {
+    gap: 0 10px;
+  }
+}
 
 

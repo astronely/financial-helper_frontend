@@ -1,0 +1,40 @@
+.boardusers {
+  &__layout {
+
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 1rem;
+
+    padding: 2rem 0;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+  }
+
+  &__user {
+    display: flex;
+    font-family: "Montserrat Alternates", serif;
+    font-size: 2rem;
+
+    border: 1px solid var(--green-icon-active);
+    border-radius: 1rem;
+
+    padding: 0.5rem;
+  }
+}
