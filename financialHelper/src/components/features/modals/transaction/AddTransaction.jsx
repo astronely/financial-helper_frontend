@@ -60,7 +60,7 @@ export function AddTransaction({open = false}) {
                     name='from_wallet'
                     control={control}
                     render={({field}) => (
-                        <Select {...field} options={wallets} placeholder='Кошелек для списывания' isClearable/>
+                        <Select {...field} options={wallets} placeholder='Кошелек' isClearable/>
                     )}/>
                 {
                     selectedType?.value === 'transfer' ?
