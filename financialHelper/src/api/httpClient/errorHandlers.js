@@ -1,3 +1,5 @@
+import {toast} from "react-toastify";
+
 export const handleError = (error) => {
     if (error.response) {
         switch (error.response.status) {
@@ -6,6 +8,7 @@ export const handleError = (error) => {
                 // window.location.href = '/login';
                 break;
             case 500:
+                toast.error("Ошибка доступа");
                 console.error("Server error:", error.message);
                 break;
             default:
