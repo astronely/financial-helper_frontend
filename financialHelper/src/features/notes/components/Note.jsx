@@ -1,6 +1,7 @@
 import {CheckCircle, Circle, CircleX, Pen} from "lucide-react";
 import {UserService} from "@/features/users/service/userService.js";
 import {useEffect, useState} from "react";
+import {useModal} from "@/shared/hooks/useModal.js";
 
 export function Note({note, openModal}) {
 
@@ -16,7 +17,7 @@ export function Note({note, openModal}) {
                 })
                 .catch(err => console.error(err))
         }
-    }, [])
+    }, [note.info.performerId])
 
     return (
         <div className={`note ${note.info.status ? 'note__complete' : ''}`}>

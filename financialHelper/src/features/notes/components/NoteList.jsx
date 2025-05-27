@@ -56,8 +56,10 @@ export function NoteList() {
 
     const handleCompleteNote = async data => {
         try {
+            console.log("in complete node")
             const response = await noteService.complete(data)
             setUpdateItems(!updateItems)
+            console.log(updateItems)
         } catch (err) {
             console.error("Не удалось отметить заметку: " + err)
         }
@@ -89,6 +91,7 @@ export function NoteList() {
         // console.log(params.id)
         noteService.list(params.id)
             .then(res => {
+                console.log("Use effect", res)
                 setNotes(res.notes)
             })
             .catch(error => console.error(error));

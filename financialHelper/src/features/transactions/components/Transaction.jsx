@@ -9,7 +9,7 @@ import '@/features/shared/IconButtons.scss'
 // import {useModal} from "../../../../hooks/useModal.js";
 
 export function Transaction({transaction,  openModal}) {
-    const {setIsActive, setModal} = useModal();
+    const {setIsActive, setModal, updateItems} = useModal();
 
     // console.log("Transaction:", transaction.transaction)
     // console.log("Details: ", transaction.details)
@@ -39,7 +39,7 @@ export function Transaction({transaction,  openModal}) {
                 })
                 .catch(err => console.error("Error get to_wallet info: ", err))
         }
-    }, [])
+    }, [updateItems])
 
     // TODO: если transfer - то надо выводить откуда и куда
     return (
