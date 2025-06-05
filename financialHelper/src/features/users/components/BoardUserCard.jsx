@@ -9,7 +9,7 @@ export function BoardUserCard({user, openModal}) {
     useEffect(() => {
         userService.get(user.userId)
             .then(res => {
-                console.log("In card", res)
+                // console.log("In card", res)
                 setUserInfo(res.user)
             })
     }, [user])

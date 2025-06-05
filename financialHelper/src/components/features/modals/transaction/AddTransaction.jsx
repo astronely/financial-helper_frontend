@@ -102,7 +102,7 @@ export function AddTransaction({open = false}) {
                     )}
                 />
                 <input  {...register('shop_name', {required: requiredMessage})}
-                        className={errors.name ? 'modal__input modal__error' : 'modal__input'}
+                        className={errors.shop_name ? 'modal__input modal__error' : 'modal__input'}
                         placeholder='Название магазина' type='text' maxLength={30}/>
                 <input {...register('price', {required: requiredMessage})}
                        className={errors.price ? 'modal__input modal__error' : 'modal__input'}

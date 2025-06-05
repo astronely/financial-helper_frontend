@@ -15,7 +15,7 @@ export function AddNote({open = false}) {
     return (
         <Modal open={open}>
             <form className='modal__form' onSubmit={handleSubmit(submitHandler)}>
-                <textarea  {...register('content', {required: requiredMessage})} className={errors.name ? 'modal__textarea modal__error' : 'modal__textarea'} placeholder='Текст заметки' type='text' maxLength={1024}/>
+                <textarea  {...register('content', {required: requiredMessage})} className={errors.content ? 'modal__textarea modal__error' : 'modal__textarea'} placeholder='Текст заметки' type='text' maxLength={1024}/>
                 <button className='modal-button' type='submit'>Добавить</button>
             </form>
         </Modal>

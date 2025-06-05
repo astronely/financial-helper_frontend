@@ -6,6 +6,7 @@ import {useParams} from "react-router";
 import "./Wallets.scss"
 import {useModal} from "@/shared/hooks/useModal.js";
 import {useForm} from "react-hook-form";
+import {toast} from "react-toastify";
 
 export function WalletsLayout() {
     const [wallets, setWallets] = useState([]);
@@ -29,9 +30,7 @@ export function WalletsLayout() {
             // console.log(data)
             const dataToSend = {
                 info: {
-                    ownerId: localStorage.getItem("userID"),
-                    boardId: params.id,
-                    name: data.name,
+                    name: data.name.trim(),
                     balance: data.balance,
                 }
             }
@@ -41,6 +40,15 @@ export function WalletsLayout() {
             setIsActive(false)
             reset()
         } catch (error) {
+            if (error.message.includes("All fields")) {
+                toast.error("Заполните все поля")
+            } else if (error.status === undefined) {
+                toast.error("Ошибка подключения к серверу")
+            } else if (error.status === 500) {
+                toast.error("Кошелек с таким именем уже есть")
+            } else {
+                toast.error("Ошибка добавления кошелька: " + error.message)
+            }
             console.error("Не удалось добавить кошелек: " + error)
         }
     }
@@ -50,7 +58,7 @@ export function WalletsLayout() {
             const dataToSend = {
                 id: id,
                 info: {
-                    name: name,
+                    name: name.trim(),
                 }
             }
             // console.log(dataToSend)
@@ -60,6 +68,15 @@ export function WalletsLayout() {
             setIsActive(false)
             reset()
         } catch (error) {
+            if (error.message.includes("All fields")) {
+                toast.error("Заполните все поля")
+            } else if (error.status === undefined) {
+                toast.error("Ошибка подключения к серверу")
+            } else if (error.status === 500) {
+                toast.error("Кошелек с таким именем уже есть")
+            } else {
+                toast.error("Ошибка обновления кошелька: " + error.message)
+            }
             console.error("Не удалось обновить кошелек: " + error)
         }
     }
@@ -72,6 +89,7 @@ export function WalletsLayout() {
             setIsActive(false)
             reset()
         } catch (error) {
+            toast.error("Ошибка удаления кошелька: " + error.message)
             console.error("Не удалось удалить кошелек: " + error)
         }
     }

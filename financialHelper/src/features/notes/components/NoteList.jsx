@@ -4,6 +4,8 @@ import {useModal} from "@/shared/hooks/useModal.js";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router";
 import {Container} from "react-bootstrap";
+import {toast} from "react-toastify";
+import {SlidersHorizontal} from "lucide-react";
 
 export function NoteList() {
     const [notes, setNotes] = useState([]);
@@ -19,13 +21,20 @@ export function NoteList() {
             // console.log(data)
             const dataToSend = {
                 info: {
-                    content: data.content
+                    content: data.content.trim()
                 }
             }
             const response = await noteService.create(dataToSend)
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
+            if (err.message.includes("All fields")) {
+                toast.error("Заполните все поля")
+            } else if (err.status === undefined) {
+                toast.error("Ошибка подключения к серверу")
+            } else {
+                toast.error("Ошибка добавления заметки: " + err.message)
+            }
             console.error("Не удалось добавить заметку: " + err)
         }
     }
@@ -34,12 +43,19 @@ export function NoteList() {
         try {
             const dataToSend = {
                 id: data.id,
-                content: data.content
+                content: data.content.trim()
             }
             const response = await noteService.update(dataToSend)
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
+            if (err.message.includes("All fields")) {
+                toast.error("Заполните все поля")
+            } else if (err.status === undefined) {
+                toast.error("Ошибка подключения к серверу")
+            } else {
+                toast.error("Ошибка обновления заметки: " + err.message)
+            }
             console.error("Не удалось изменить заметку: " + err)
         }
     }
@@ -50,6 +66,7 @@ export function NoteList() {
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
+            toast.error("Ошибка удаления заметки: " + err.message)
             console.error("Не удалось удалить заметку: " + err)
         }
     }
@@ -61,7 +78,16 @@ export function NoteList() {
             setUpdateItems(!updateItems)
             console.log(updateItems)
         } catch (err) {
+            toast.error("Ошибка при изменении состояни заметки: " + err.message)
             console.error("Не удалось отметить заметку: " + err)
+        }
+    }
+
+    const handleFilterNote = async data => {
+        try {
+            console.log(data)
+        } catch (err) {
+            console.error(err)
         }
     }
 
@@ -82,8 +108,8 @@ export function NoteList() {
             handleCompleteNote(data)
                 .then()
                 .catch(err => console.error(err))
-        } else if (modalName === 'filterNotes') {
-
+        } else if (modalName === 'filterNote') {
+            setSubmitHandler(() => handleFilterNote)
         }
     }
 
@@ -91,7 +117,7 @@ export function NoteList() {
         // console.log(params.id)
         noteService.list(params.id)
             .then(res => {
-                console.log("Use effect", res)
+                // console.log("Use effect", res)
                 setNotes(res.notes)
             })
             .catch(error => console.error(error));
@@ -99,9 +125,15 @@ export function NoteList() {
 
     return (
         <Container className='notes__container'>
-            <div className='notes__title'>Заметки</div>
+            <div className='notes__header'>
+                <div className='notes__title'>Заметки</div>
+                <button onClick={() => {
+                    openModal('filterNote')
+                }}
+                        className='icon-button'><SlidersHorizontal/></button>
+            </div>
             <div className='notes__list'>
-                {notes.map((note) => (
+            {notes.map((note) => (
                     <Note note={note} openModal={openModal} key={note.id} />
                 ))}
             </div>

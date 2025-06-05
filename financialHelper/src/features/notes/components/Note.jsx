@@ -11,7 +11,7 @@ export function Note({note, openModal}) {
         if (note.info.performerId > 0) {
             userService.get(note.info.performerId)
                 .then(res => {
-                    console.log(res)
+                    // console.log(res)
                     setPerformer(res.user.info.name)
                 })
                 .catch(err => console.error(err))

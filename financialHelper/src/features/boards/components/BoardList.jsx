@@ -8,6 +8,7 @@ import {useNavigate} from "react-router-dom";
 import {useModal} from "@/shared/hooks/useModal.js";
 import {useForm} from "react-hook-form";
 import {Container} from "react-bootstrap";
+import {toast} from "react-toastify";
 
 export function BoardList() {
     const navigate = useNavigate()
@@ -25,6 +26,7 @@ export function BoardList() {
             }
             navigate("/board/"+id)
         } catch (err) {
+            toast.error("Ошибка подключения к доске: " + err.message)
             console.error("Ошибка подключения к доске:" + err)
         }
     }
@@ -42,6 +44,7 @@ export function BoardList() {
             setIsActive(false)
             reset()
         } catch (error) {
+            toast.error("Ошибка добавления доски: " + error.message)
             console.error("Не удалось создать новую доску: " + error)
         }
     }
@@ -59,6 +62,7 @@ export function BoardList() {
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
+            toast.error("Ошибка обновления доски: " + err.message)
             console.error("Не удалось изменить доску: " + err)
         }
     }
@@ -70,6 +74,7 @@ export function BoardList() {
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
+            toast.error("Ошибка удаления доски: " + err.message)
             console.error("Не удалось удалить доску: " + err)
         }
     }

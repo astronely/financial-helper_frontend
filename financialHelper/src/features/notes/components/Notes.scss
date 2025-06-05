@@ -13,6 +13,13 @@
     max-height: calc(90vh - var(--header-height));
   }
 
+  &__header {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
   &__list {
     display: flex;
     flex-direction: column;

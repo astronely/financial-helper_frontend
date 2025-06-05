@@ -47,7 +47,13 @@ export function TransactionsLayout() {
             setIsActive(false)
 
         } catch (err) {
-            toast.error("Не удалось добавить операцию, проверьте поля")
+            if (err.message.includes("All fields")) {
+                toast.error("Заполните все поля")
+            } else if (err.status === undefined) {
+                toast.error("Ошибка подключения к серверу")
+            } else {
+                toast.error("Ошибка добавления операции: " + err.message)
+            }
             console.error("Не удалось добавить операцию: " + err)
         }
     }
@@ -77,6 +83,13 @@ export function TransactionsLayout() {
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
+            if (err.message.includes("All fields")) {
+                toast.error("Заполните все поля")
+            } else if (err.status === undefined) {
+                toast.error("Ошибка подключения к серверу")
+            } else {
+                toast.error("Ошибка обновления операции: " + err.message)
+            }
             console.error("Не удалось обновить операцию: " + err)
         }
     }
@@ -87,8 +100,9 @@ export function TransactionsLayout() {
             const response = await transactionService.delete(id)
             setUpdateItems(!updateItems)
             setIsActive(false)
-        } catch (error) {
-            console.error("Не удалось удалить операцию: " + error)
+        } catch (err) {
+            toast.error("Ошибка удаления операции: " + err.message)
+            console.error("Не удалось удалить операцию: " + err)
         }
     }
 
@@ -114,6 +128,7 @@ export function TransactionsLayout() {
             // console.log(filtersQuery)
             setQueryParams(filtersQuery)
         } catch (err) {
+            toast.error("Ошибка применения фильтрации: " + err.message)
             console.error("Ошибка применения фильтрации: " + err)
         }
     }

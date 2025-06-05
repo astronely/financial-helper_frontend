@@ -99,25 +99,25 @@ export function UpdateTransaction({open = false}) {
                         <Select {...field} options={types} placeholder='Тип операции' isClearable/>
                     )}/>
 
-                {/*<Controller*/}
-                {/*    name="date"*/}
-                {/*    control={control}*/}
-                {/*    defaultValue={new Date()}*/}
-                {/*    render={({field}) => (*/}
-                {/*        <DatePicker*/}
-                {/*            showIcon*/}
-                {/*            placeholderText='Дата проведения'*/}
-                {/*            selected={field.value}*/}
-                {/*            onChange={field.onChange}*/}
-                {/*            dateFormat="dd-MM-yyyy"*/}
-                {/*        />*/}
-                {/*    )}*/}
-                {/*/>*/}
+                <Controller
+                    name="date"
+                    control={control}
+                    defaultValue={new Date()}
+                    render={({field}) => (
+                        <DatePicker
+                            showIcon
+                            placeholderText='Дата проведения'
+                            selected={field.value}
+                            onChange={field.onChange}
+                            dateFormat="dd-MM-yyyy"
+                        />
+                    )}
+                />
                 <input  {...register('name', {required: requiredMessage})}
                         className={errors.name ? 'modal__input modal__error' : 'modal__input'}
                         placeholder='Название магазина' type='text' maxLength={30}/>
                 <input {...register('amount', {required: requiredMessage})}
-                       className={errors.price ? 'modal__input modal__error' : 'modal__input'}
+                       className={errors.amount ? 'modal__input modal__error' : 'modal__input'}
                        placeholder='Сумма операции' type='text' maxLength={10}/>
                 <button className='modal-button' type='submit'>Изменить</button>
             </form>

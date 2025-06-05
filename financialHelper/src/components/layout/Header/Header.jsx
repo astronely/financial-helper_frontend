@@ -29,6 +29,11 @@ export function LandingHeader() {
             navigate("/boards")
             reset()
         } catch (error) {
+            if (error.status === undefined) {
+                toast.error("Ошибка доступа к серверу")
+            } else if (error.status === 500) {
+                toast.error("Неправильный логин или пароль")
+            }
             console.error("Ошибка при авторизации:", error)
         }
     }
@@ -42,6 +47,13 @@ export function LandingHeader() {
             const openRes = await openModal("signIn")
             reset()
         } catch (error) {
+            if (error.message.includes("All fields")) {
+                toast.error("Заполните все поля!")
+            } else if (error.status === undefined) {
+                toast.error("Ошибка доступа к серверу")
+            } else if (error.status === 500) {
+                toast.error("Пользователь с такой почтой уже зарегистрирован!")
+            }
             console.error("Ошибка при авторизации:", error)
         }
     }

@@ -7,3 +7,6 @@ export const create = (userInfo) =>
 
 export const get = (userID) =>
     axiosInstance.get(userURL + '/' + userID);
+
+export const update = data =>
+    axiosInstance.put(userURL, data)

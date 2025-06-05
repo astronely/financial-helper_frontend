@@ -20,7 +20,12 @@ export class UserService {
     }
 
     async get(id) {
-        if (!id) throw new Error('All fields are required')
+        // if (!id) throw new Error('All fields are required')
         return await this.repo.getUser(id)
+    }
+
+    async update(data) {
+        if (!data.id || !data.info.name) throw new Error('All fields are required')
+        return await this.repo.update(data)
     }
 }

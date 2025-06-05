@@ -12,6 +12,8 @@ import {UpdateTransaction} from "@/components/features/modals/transaction/Update
 import {AddNote} from "@/components/features/modals/note/AddNote.jsx";
 import {UpdateNote} from "@/components/features/modals/note/UpdateNote.jsx";
 import {UpdateBoard} from "@/components/features/modals/board/UpdateBoard.jsx";
+import {UpdateUser} from "@/components/features/modals/user/UpdateUser.jsx";
+import {FilterNote} from "@/components/features/modals/note/FilterNote.jsx";
 
 export function ModalManager() {
     const {modal} = useModal();
@@ -34,6 +36,9 @@ export function ModalManager() {
 
             <AddNote open={modal === 'addNote'}/>
             <UpdateNote open={modal === 'updateNote'}/>
+            <FilterNote open={modal === 'filterNote'}/>
+
+            <UpdateUser open={modal === 'updateUser'}/>
         </>
     )
 }

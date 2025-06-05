@@ -1,32 +1,34 @@
 import {useModal} from "@/shared/hooks/useModal.js";
 import {useForm} from "react-hook-form";
-import {Modal} from "@/components/features/modals/Modal.jsx";
 import {useEffect} from "react";
+import {Modal} from "@/components/features/modals/Modal.jsx";
 
-export function UpdateNote({open = false}) {
-    const  {submitHandler, baseInfo} = useModal();
+export function UpdateUser({open = false}) {
     const requiredMessage = "Обязательно для заполнения"
+    const  {submitHandler, baseInfo} = useModal();
 
     const {register, handleSubmit, formState: { errors}, reset} = useForm({
         defaultValues: {
             id: baseInfo.id,
-            content: baseInfo.content,
+            name: baseInfo.name,
         }
     })
 
     useEffect(() => {
+        // console.log("BASE INFO")
+        // console.log(baseInfo)
         if (baseInfo) {
             reset({
                 id: baseInfo.id,
-                content: baseInfo.content,
+                name: baseInfo.name,
             })
         }
-    }, [baseInfo])
+    }, [baseInfo, reset])
 
     return (
         <Modal open={open}>
             <form className='modal__form' onSubmit={handleSubmit(submitHandler)}>
-                <textarea  {...register('content', {required: requiredMessage})} className={errors.content ? 'modal__textarea modal__error' : 'modal__textarea'} placeholder='Текст заметки' maxLength={1024}/>
+                <input  {...register('name', {required: requiredMessage})} className={errors.name ? 'modal__input modal__error' : 'modal__input'} placeholder='Имя пользователя' type='text' maxLength={128}/>
                 <button className='modal-button' type='submit'>Изменить</button>
             </form>
         </Modal>
