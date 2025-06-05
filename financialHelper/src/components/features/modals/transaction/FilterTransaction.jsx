@@ -65,20 +65,20 @@ export function FilterTransaction({open = false}) {
                 {/*        <Select {...field} options={types} placeholder='Тип операции' isClearable/>*/}
                 {/*    )}/>*/}
 
-                <Controller
-                    name="transactionDate"
-                    control={control}
-                    defaultValue={new Date()}
-                    render={({field}) => (
-                        <DatePicker
-                            showIcon
-                            placeholderText='Дата проведения'
-                            selected={field.value}
-                            onChange={field.onChange}
-                            dateFormat="dd-MM-yyyy"
-                        />
-                    )}
-                />
+                {/*<Controller*/}
+                {/*    name="transactionDate"*/}
+                {/*    control={control}*/}
+                {/*    defaultValue={new Date()}*/}
+                {/*    render={({field}) => (*/}
+                {/*        <DatePicker*/}
+                {/*            showIcon*/}
+                {/*            placeholderText='Дата проведения'*/}
+                {/*            selected={field.value}*/}
+                {/*            onChange={field.onChange}*/}
+                {/*            dateFormat="dd-MM-yyyy"*/}
+                {/*        />*/}
+                {/*    )}*/}
+                {/*/>*/}
                 {/*<input  {...register('shop_name', {required: requiredMessage})}*/}
                 {/*        className={errors.name ? 'modal__input modal__error' : 'modal__input'}*/}
                 {/*        placeholder='Название магазина' type='text' maxLength={30}/>*/}

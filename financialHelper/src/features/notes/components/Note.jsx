@@ -1,7 +1,6 @@
 import {CheckCircle, Circle, CircleX, Pen} from "lucide-react";
 import {UserService} from "@/features/users/service/userService.js";
 import {useEffect, useState} from "react";
-import {useModal} from "@/shared/hooks/useModal.js";
 
 export function Note({note, openModal}) {
 

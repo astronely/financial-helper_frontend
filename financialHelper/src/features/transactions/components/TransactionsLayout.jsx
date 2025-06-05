@@ -22,11 +22,16 @@ export function TransactionsLayout() {
     const handleAddTransaction = async data => {
         try {
             // console.log(data)
+            let finalAmount = data.price.trim()
+            const [intPart, decimalPart] = finalAmount.split('.')
+            if (decimalPart !== undefined) {
+                finalAmount = `${intPart}.${decimalPart.slice(0, 2)}`
+            }
             const dataToSend = {
                 info: {
                   fromWalletId: data.from_wallet.value.toString(),
                   toWalletId: data.to_wallet?.value.toString(),
-                  amount: data.price.trim(),
+                  amount: finalAmount,
                   type: data.type.value.toString()
                 },
                 detailsInfo: {
@@ -51,11 +56,16 @@ export function TransactionsLayout() {
         try {
             // console.log("Handle Update Transaction")
             // console.log(data)
+            let finalAmount = data.amount.trim()
+            const [intPart, decimalPart] = finalAmount.split('.')
+            if (decimalPart !== undefined) {
+                finalAmount = `${intPart}.${decimalPart.slice(0, 2)}`
+            }
             const dataToSend = {
                 id: data.id,
                 info: {
                     name: data.name.trim(),
-                    amount: data.amount.trim(),
+                    amount: finalAmount,
                     fromWalletId: data.fromWalletId.value.toString(),
                     toWalletId: data.type.value.toString() === 'transfer' ? data.toWalletId.value.toString() : null,
                     type: data.type.value.toString(),
