@@ -35,6 +35,40 @@
     align-content: center;
     font-size: 2.25rem;
   }
+
+  &__filters {
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    max-height: 0;
+    transition: all 0.2s ease;
+    padding: 0.25rem 0;
+
+    &-visible {
+      display: flex;
+      opacity: 1;
+      max-height: none;
+    }
+
+    &-title {
+      font-size: 1.25rem;
+    }
+
+    &-list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+    }
+  }
+
+  &__filter {
+    background-color: var(--green-icon-active);
+    border-radius: 1rem;
+    padding: 0.33rem;
+    font-family: "Montserrat Alternates", serif;
+    font-size: 0.75rem;
+  }
 }
 
 .note {

@@ -82,7 +82,7 @@ export function FilterNote({open = false}) {
                     )}/>
 
                 <Controller
-                    name='type'
+                    name='status'
                     control={control}
                     render={({field}) => (
                         <Select {...field} options={statuses} placeholder='Статус заметки' isClearable/>

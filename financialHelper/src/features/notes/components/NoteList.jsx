@@ -10,7 +10,7 @@ import {SlidersHorizontal} from "lucide-react";
 export function NoteList() {
     const [notes, setNotes] = useState([]);
     const [queryParams, setQueryParams] = useState('');
-
+    const [usedParams, setUsedParams] = useState([])
     const {updateItems, setUpdateItems, setIsActive, setModal, baseInfo, setBaseInfo, setSubmitHandler} = useModal()
 
     const noteService = new NoteService();
@@ -86,8 +86,31 @@ export function NoteList() {
     const handleFilterNote = async data => {
         try {
             console.log(data)
+            let filtersQuery = "?"
+            setUsedParams([]);
+            for (const key in data) {
+                if (data.hasOwnProperty(key)) {
+                    const value = data[key];
+                    if (value != null) {
+                        if (key.includes('completionDate') || key.includes('created')) {
+                            filtersQuery += "filterInfo." + key + "=" + value.toISOString() + "&"
+                        } else {
+                            filtersQuery += "filterInfo." + key + "=" + value.value.toString() + "&"
+                        }
+                        console.log(key)
+                        setUsedParams(prev => ([...prev, key]))
+                    }
+                }
+            }
+
+            if (filtersQuery.endsWith("&")) {
+                filtersQuery = filtersQuery.slice(0, -1);
+            }
+            console.log(filtersQuery)
+            setQueryParams(filtersQuery)
         } catch (err) {
-            console.error(err)
+            toast.error("Ошибка применения фильтрации: " + err.message)
+            console.error("Ошибка применения фильтрации: " + err)
         }
     }
 
@@ -114,10 +137,8 @@ export function NoteList() {
     }
 
     useEffect(() => {
-        // console.log(params.id)
-        noteService.list(params.id)
+        noteService.listFilter(params.id, queryParams)
             .then(res => {
-                // console.log("Use effect", res)
                 setNotes(res.notes)
             })
             .catch(error => console.error(error));
@@ -131,6 +152,14 @@ export function NoteList() {
                     openModal('filterNote')
                 }}
                         className='icon-button'><SlidersHorizontal/></button>
+            </div>
+            <div className={`notes__filters ${usedParams.length > 0 ? 'notes__filters-visible' : ''}`}>
+                <span className='notes__filters-title'>Активные фильтры</span>
+                <div className='notes__filters-list'>
+                    {usedParams.map((item, key) => (
+                        <div className='notes__filter' key={key}>{item}</div>
+                    ))}
+                </div>
             </div>
             <div className='notes__list'>
             {notes.map((note) => (

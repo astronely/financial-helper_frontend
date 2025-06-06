@@ -116,7 +116,7 @@ export function TransactionsLayout() {
                     const value = data[key];
                     if (value != null) {
                         filtersQuery += "filterInfo." + key + "=" + value.value.toString() + "&"
-                        console.log(key)
+                        // console.log(key)
                         setUsedParams(prev => ([...prev, key]))
                     }
                 }

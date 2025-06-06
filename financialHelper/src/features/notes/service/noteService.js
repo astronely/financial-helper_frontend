@@ -19,7 +19,7 @@ export class NoteService {
     }
 
     async listFilter(boardID, queryParams) {
-        if (!boardID || !queryParams) throw new Error('All fields are required')
+        if (!boardID) throw new Error('All fields are required')
         const response = await this.repo.listFilter(boardID, queryParams)
         return response
     }
