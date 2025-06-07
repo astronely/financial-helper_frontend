@@ -76,6 +76,7 @@ export function TransactionsLayout() {
                     toWalletId: data.type.value.toString() === 'transfer' ? data.toWalletId.value.toString() : null,
                     type: data.type.value.toString(),
                     category: data.category.value.toString(),
+                    transactionDate: data.transactionDate
                 }
             }
             const response = await transactionService.update(dataToSend)
@@ -114,9 +115,14 @@ export function TransactionsLayout() {
             for (const key in data) {
                 if (data.hasOwnProperty(key)) {
                     const value = data[key];
-                    if (value != null) {
-                        filtersQuery += "filterInfo." + key + "=" + value.value.toString() + "&"
-                        // console.log(key)
+                    if (value != null && value !== "") {
+                        if (key.toLowerCase().includes("date")) {
+                            filtersQuery += "filterInfo." + key + "=" + value.toISOString() + "&"
+                        } else if (key.toLowerCase().includes("name")) {
+                            filtersQuery += "filterInfo." + key + "=" + value.toString() + "&"
+                        } else {
+                            filtersQuery += "filterInfo." + key + "=" + value.value.toString() + "&"
+                        }
                         setUsedParams(prev => ([...prev, key]))
                     }
                 }

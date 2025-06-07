@@ -9,15 +9,18 @@ import '@/features/shared/IconButtons.scss'
 // import {useModal} from "../../../../hooks/useModal.js";
 
 export function Transaction({transaction,  openModal}) {
-    const {setIsActive, setModal, updateItems} = useModal();
+    const {updateItems} = useModal();
 
-    // console.log("Transaction:", transaction.transaction)
-    // console.log("Details: ", transaction.details)
-    // console.log("Category: ", transaction.category)
+    const formatDate = (dateString) => {
+        const [year, month, day] = dateString.split('T')[0].split('-');
+        return `${day}-${month}-${year}`;
+    };
 
     const walletService = new WalletService();
     const [walletName, setWalletName] = useState("");
     const [toWalletName, setToWalletName] = useState("");
+    const [formatedDate, setFormatedDate] = useState("");
+
     let transactionType = ""
     if (transaction.transaction.info.type === "income") {
         transactionType = "+"
@@ -39,15 +42,15 @@ export function Transaction({transaction,  openModal}) {
                 })
                 .catch(err => console.error("Error get to_wallet info: ", err))
         }
+        setFormatedDate(formatDate(transaction.details.info.transactionDate))
     }, [updateItems])
 
-    // TODO: если transfer - то надо выводить откуда и куда
     return (
         <div className={styles.history__card}>
             <div className="history-card__header">
                 <div className="text-with-icon">
                     <div
-                        className="history-card__primary-text history-card__operation-date">{transaction.details.info.transactionDate.split('T')[0]}</div>
+                        className="history-card__primary-text history-card__operation-date">{formatedDate}</div>
                     <button onClick={() => openModal('updateTransaction', transaction.id, transaction.details.info.name,
                         {
                             id: transaction.transaction.id,
@@ -57,6 +60,7 @@ export function Transaction({transaction,  openModal}) {
                             amount: transaction.transaction.info.amount,
                             type: transaction.transaction.info.type,
                             category: transaction.details.info.category,
+                            transactionDate: transaction.details.info.transactionDate,
                         })}
                         className="icon-button icon-button__pen"><Pen/></button>
                 </div>

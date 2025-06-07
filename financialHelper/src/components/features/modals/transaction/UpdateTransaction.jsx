@@ -26,6 +26,7 @@ export function UpdateTransaction({open = false}) {
             amount: null,
             type: null,
             category: null,
+            transactionDate: null,
         }
     })
 
@@ -60,6 +61,7 @@ export function UpdateTransaction({open = false}) {
                     toWalletId: wallets.find(w => w.value === baseInfo.data.toWalletId),
                     type: types.find(t => t.value === baseInfo.data.type),
                     category: categories.find(c => c.value === baseInfo.data.category),
+                    transactionDate: baseInfo.data.transactionDate,
                 }
             )
         }
@@ -100,7 +102,7 @@ export function UpdateTransaction({open = false}) {
                     )}/>
 
                 <Controller
-                    name="date"
+                    name='transactionDate'
                     control={control}
                     defaultValue={new Date()}
                     render={({field}) => (
