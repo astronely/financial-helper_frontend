@@ -1,5 +1,5 @@
 import {Col, Container, Row} from "react-bootstrap";
-import {CardSmall} from "@/components/layout/cardSmall/CardSmall.jsx";
+import {CardSmall} from "@/components/layout/CardSmall/CardSmall.jsx";
 import './forWho.scss'
 
 export function ForWho() {

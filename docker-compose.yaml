@@ -1,0 +1,23 @@
+services:
+  frontend:
+    build:
+      context: ./financialHelper
+    image: astrow/financialhelper-frontend:latest
+    command: npm run preview -- --host 0.0.0.0 --port 5173
+    ports:
+      - "${HOST_PORT:-5173}:5173"
+    environment:
+      - NODE_ENV=production
+      - HOST=0.0.0.0
+    env_file:
+      - ./financialHelper/.env.production
+    restart: unless-stopped
+    networks:
+      - frontend
+      - app
+
+networks:
+  frontend:
+  app:
+    name: app-network
+    external: true
