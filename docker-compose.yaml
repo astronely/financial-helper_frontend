@@ -11,8 +11,6 @@ services:
       - HOST=0.0.0.0
     env_file:
       - ./financialHelper/.env.production
-    volumes:
-      - ~/certs:/app/certs:ro
     restart: unless-stopped
     networks:
       - frontend

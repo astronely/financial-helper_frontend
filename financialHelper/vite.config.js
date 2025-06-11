@@ -7,6 +7,14 @@ import * as fs from "node:fs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const certPath = '/app/certs/cert.pem';
+const keyPath = '/app/certs/key.pem';
+
+const httpsConfig = fs.existsSync(certPath) && fs.existsSync(keyPath) ? {
+  key: fs.readFileSync(keyPath),
+  cert: fs.readFileSync(certPath),
+} : false;
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
@@ -14,10 +22,7 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     host: '0.0.0.0',
-    https: {
-      key: fs.readFileSync('/app/certs/key.pem'),
-      cert: fs.readFileSync('/app/certs/cert.pem'),
-    },
+    https: httpsConfig || undefined,
     proxy: {
       '/api': {
         target: 'http://api-gateway:8081',

@@ -24,12 +24,15 @@ WORKDIR /app
 
 # Copy package files
 COPY package*.json ./
+COPY .env.production .env.production
+COPY certs /app/certs
 
 # Install only production dependencies
 RUN npm install && npm cache clean --force
 
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/vite.config.js ./
 
 # Expose port
 EXPOSE 5173
