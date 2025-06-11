@@ -25,12 +25,12 @@ export function BoardUsers() {
         }
     }
 
-    function openModal(modalName, userID) {
+    function openModal(modalName, data) {
         setIsActive(true);
         setModal(modalName);
-
+        setBaseInfo({name: data.name})
         if (modalName === 'confirm') {
-            setSubmitHandler(() => (dataNew) => handleDeleteUser({...dataNew, id: userID}));
+            setSubmitHandler(() => (dataNew) => handleDeleteUser({...dataNew, id: data.id}));
         }
     }
 

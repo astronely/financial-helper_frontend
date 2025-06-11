@@ -7,9 +7,9 @@ import App from './App.jsx'
 import {ModalProvider} from "@/shared/context/ModalContext.jsx";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <ModalProvider>
             <App/>
         </ModalProvider>
-    </React.StrictMode>,
+    // </React.StrictMode>,
 )

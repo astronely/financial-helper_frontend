@@ -51,7 +51,7 @@ export function LandingHeader() {
                 toast.error("Заполните все поля!")
             } else if (error.status === undefined) {
                 toast.error("Ошибка доступа к серверу")
-            } else if (error.status === 500) {
+            } else if (error.status === 409) {
                 toast.error("Пользователь с такой почтой уже зарегистрирован!")
             }
             console.error("Ошибка при авторизации:", error)

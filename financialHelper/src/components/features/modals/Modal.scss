@@ -64,6 +64,14 @@
   transition: 0.2s;
 }
 
+.modal__error-message {
+  border-color: #cc2b1a;
+  border-width: 1px;
+  transition: 0.2s;
+  font-size: 0.75rem;
+  color: #cc2b1a;
+}
+
 .modal__form {
   display: flex;
   //align-items: center;

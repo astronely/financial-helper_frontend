@@ -14,9 +14,9 @@ export function AddTransaction({open = false}) {
     const [types, setTypes] = useState('');
     const [wallets, setWallets] = useState([])
 
-    const  {submitHandler, baseInfo} = useModal();
+    const {submitHandler, baseInfo} = useModal();
 
-    const {register, handleSubmit, formState: { errors}, control, watch} = useForm({
+    const {register, handleSubmit, formState: {errors}, control, watch} = useForm({
         defaultValues: {
             from_wallet: null,
             to_wallet: null,
@@ -104,10 +104,18 @@ export function AddTransaction({open = false}) {
                 <input  {...register('shop_name', {required: requiredMessage})}
                         className={errors.shop_name ? 'modal__input modal__error' : 'modal__input'}
                         placeholder='Название магазина' type='text' maxLength={30}/>
-                <input {...register('price', {required: requiredMessage})}
-                       className={errors.price ? 'modal__input modal__error' : 'modal__input'}
-                       placeholder='Сумма операции' type='text' maxLength={10}/>
-
+                {/*<div>*/}
+                    <input {...register('price', {
+                        required: requiredMessage,
+                        pattern: {
+                            value: /^\d+(\.\d{2})?$/,
+                            message: "Доступны только цифры"
+                        }
+                    })}
+                           className={errors.price ? 'modal__input modal__error' : 'modal__input'}
+                           placeholder='Сумма операции' type='text'
+                           pattern="^\d+(\.\d{2})?" title='Доступны только цифры в формате 123.12' maxLength={10}/>
+                {/*</div>*/}
                 <button className='modal-button' type='submit'>Добавить</button>
             </form>
         </Modal>

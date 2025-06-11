@@ -22,8 +22,8 @@ export function BoardUserCard({user, openModal}) {
                 {user.userId === localUserId ?
                     ''
                     :
-                    <button onClick={() => openModal('confirm', user.userId)}
-                            className="icon-button icon-button__cross"><CircleX/></button>
+                    <button onClick={() => openModal('confirm', {name: userInfo?.info?.name, id: user.userId})}
+                            className="icon-button icon-button__cross boardusers__icon-button"><CircleX/></button>
                 }
             </div>
         </div>

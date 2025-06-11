@@ -11,7 +11,7 @@ export function InviteHandler() {
     useEffect(() => {
         try {
             console.log(params.token)
-            join(params.token);
+            const response = join(params.token);
             navigate('/boards');
         } catch (err) {
             console.error("Ошибка подключения к доске: " + err)

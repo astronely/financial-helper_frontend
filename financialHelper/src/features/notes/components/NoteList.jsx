@@ -53,7 +53,7 @@ export function NoteList() {
                 toast.error("Заполните все поля")
             } else if (err.status === undefined) {
                 toast.error("Ошибка подключения к серверу")
-            } else {
+            } else if (err.status !== 401) {
                 toast.error("Ошибка обновления заметки: " + err.message)
             }
             console.error("Не удалось изменить заметку: " + err)
@@ -66,7 +66,9 @@ export function NoteList() {
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
-            toast.error("Ошибка удаления заметки: " + err.message)
+            if (err.status !== 401) {
+                toast.error("Ошибка удаления заметки: " + err.message)
+            }
             console.error("Не удалось удалить заметку: " + err)
         }
     }
@@ -78,7 +80,9 @@ export function NoteList() {
             setUpdateItems(!updateItems)
             console.log(updateItems)
         } catch (err) {
-            toast.error("Ошибка при изменении состояни заметки: " + err.message)
+            if (err.status !== 401) {
+                toast.error("Ошибка при изменении состояни заметки: " + err.message)
+            }
             console.error("Не удалось отметить заметку: " + err)
         }
     }

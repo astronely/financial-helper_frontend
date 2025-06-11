@@ -9,7 +9,11 @@ export const handleError = (error) => {
                 // window.location.href = '/login';
                 break;
             case 500:
-                toast.error("Ошибка доступа к серверу");
+                if (error.code === "ERR_BAD_RESPONSE") {
+                    toast.error("Некорректный запрос")
+                } else {
+                    toast.error("Ошибка доступа к серверу");
+                }
                 console.error("Server error:", error.message);
                 break;
             default:

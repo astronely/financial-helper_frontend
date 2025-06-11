@@ -19,26 +19,26 @@ export function ModalManager() {
     const {modal} = useModal();
     return (
         <>
-            <SignIn open={modal === 'signIn'}/>
-            <SignUp open={modal === 'signUp'}/>
-            <ConfirmDelete open={modal === 'confirm'}/>
+            {/*<SignIn open={modal === 'signIn'}/>*/}
+            {/*<SignUp open={modal === 'signUp'}/>*/}
+            {/*<ConfirmDelete open={modal === 'confirm'}/>*/}
 
-            <AddWallet open={modal === 'addWallet'}/>
-            <UpdateWallet open={modal === 'updateWallet'}/>
+            {/*<AddWallet open={modal === 'addWallet'}/>*/}
+            {/*<UpdateWallet open={modal === 'updateWallet'}/>*/}
 
-            <Invite open={modal === 'invite'}/>
-            <AddBoard open={modal === 'addBoard'}/>
-            <UpdateBoard open={modal === 'updateBoard'}/>
+            {/*<Invite open={modal === 'invite'}/>*/}
+            {/*<AddBoard open={modal === 'addBoard'}/>*/}
+            {/*<UpdateBoard open={modal === 'updateBoard'}/>*/}
 
-            <AddTransaction open={modal === 'addTransaction'}/>
-            <UpdateTransaction open={modal === 'updateTransaction'}/>
-            <FilterTransaction open={modal === 'filterTransaction'}/>
+            {/*<AddTransaction open={modal === 'addTransaction'}/>*/}
+            {/*<UpdateTransaction open={modal === 'updateTransaction'}/>*/}
+            {/*<FilterTransaction open={modal === 'filterTransaction'}/>*/}
 
-            <AddNote open={modal === 'addNote'}/>
-            <UpdateNote open={modal === 'updateNote'}/>
-            <FilterNote open={modal === 'filterNote'}/>
+            {/*<AddNote open={modal === 'addNote'}/>*/}
+            {/*<UpdateNote open={modal === 'updateNote'}/>*/}
+            {/*<FilterNote open={modal === 'filterNote'}/>*/}
 
-            <UpdateUser open={modal === 'updateUser'}/>
+            {/*<UpdateUser open={modal === 'updateUser'}/>*/}
         </>
     )
 }

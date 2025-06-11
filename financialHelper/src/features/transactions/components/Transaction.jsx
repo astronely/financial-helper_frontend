@@ -43,7 +43,7 @@ export function Transaction({transaction,  openModal}) {
                 .catch(err => console.error("Error get to_wallet info: ", err))
         }
         setFormatedDate(formatDate(transaction.details.info.transactionDate))
-    }, [updateItems])
+    }, [updateItems, transaction])
 
     return (
         <div className={styles.history__card}>

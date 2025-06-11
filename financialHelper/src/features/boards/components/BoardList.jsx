@@ -62,7 +62,9 @@ export function BoardList() {
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
-            toast.error("Ошибка обновления доски: " + err.message)
+            if (err.status !== 401) {
+                toast.error("Ошибка обновления доски: " + err.message)
+            }
             console.error("Не удалось изменить доску: " + err)
         }
     }
@@ -74,7 +76,9 @@ export function BoardList() {
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
-            toast.error("Ошибка удаления доски: " + err.message)
+            if (err.status !== 401) {
+                toast.error("Ошибка удаления доски: " + err.message)
+            }
             console.error("Не удалось удалить доску: " + err)
         }
     }

@@ -47,7 +47,7 @@ export function UpdateTransaction({open = false}) {
             }))
             setWallets(options)
         }
-    }, [baseInfo.wallets, baseInfo.categories])
+    }, [baseInfo.wallets, baseInfo.categories, reset])
 
     useEffect(() => {
         if (baseInfo?.data) {
@@ -65,7 +65,7 @@ export function UpdateTransaction({open = false}) {
                 }
             )
         }
-    }, [baseInfo.data, wallets, categories, reset])
+    }, [baseInfo.data, wallets, categories, types, reset])
 
     return (
         <Modal open={open}>
@@ -118,9 +118,16 @@ export function UpdateTransaction({open = false}) {
                 <input  {...register('name', {required: requiredMessage})}
                         className={errors.name ? 'modal__input modal__error' : 'modal__input'}
                         placeholder='Название магазина' type='text' maxLength={30}/>
-                <input {...register('amount', {required: requiredMessage})}
+                <input {...register('amount', {
+                    required: requiredMessage,
+                    pattern: {
+                        value: /^\d+(\.\d{2})?$/,
+                        message: "Доступны только цифры"
+                    }
+                })}
                        className={errors.amount ? 'modal__input modal__error' : 'modal__input'}
-                       placeholder='Сумма операции' type='text' maxLength={10}/>
+                       placeholder='Сумма операции' type='text'
+                       pattern="^\d+(\.\d{2})?" title='Доступны только цифры в формате 123.12' maxLength={10}/>
                 <button className='modal-button' type='submit'>Изменить</button>
             </form>
         </Modal>

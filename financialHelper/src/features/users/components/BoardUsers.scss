@@ -19,12 +19,17 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    align-content: center;
   }
 
   &__buttons {
     display: flex;
     justify-content: center;
     align-content: center;
+  }
+
+  &__icon-button {
+    min-width: 2rem;
   }
 
   &__user {

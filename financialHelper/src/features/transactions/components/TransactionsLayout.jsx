@@ -88,7 +88,7 @@ export function TransactionsLayout() {
                 toast.error("Заполните все поля")
             } else if (err.status === undefined) {
                 toast.error("Ошибка подключения к серверу")
-            } else {
+            } else if (err.status !== 401) {
                 toast.error("Ошибка обновления операции: " + err.message)
             }
             console.error("Не удалось обновить операцию: " + err)
@@ -102,7 +102,9 @@ export function TransactionsLayout() {
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
-            toast.error("Ошибка удаления операции: " + err.message)
+            if (err.status !== 401) {
+                toast.error("Ошибка удаления операции: " + err.message)
+            }
             console.error("Не удалось удалить операцию: " + err)
         }
     }
@@ -204,7 +206,7 @@ export function TransactionsLayout() {
     useEffect(() => {
         transactionService.listFilter(params.id, queryParams)
             .then(res => {
-                // console.log("Transactions: ", res)
+                console.log("Transactions: ", res)
                 setTransactions([])
                 setTransactions(res.transactions)
             })

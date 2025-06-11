@@ -1,12 +1,15 @@
 import {LandingHeader} from "@/components/layout/Header/Header.jsx";
-import {ModalManager} from "@/components/features/modals/ModalManager.jsx";
 import {Home} from "@/components/layout/Home/Home.jsx";
 import {ForWho} from "@/components/layout/ForWho/ForWho.jsx";
 import {Possibilities} from "@/components/layout/Possibilities/Possibilities.jsx";
 import './informationText.scss'
 import './informationBlock.scss'
+import {SignIn} from "@/components/features/modals/auth/SignIn.jsx";
+import {SignUp} from "@/components/features/modals/auth/SignUp.jsx";
+import {useModal} from "@/shared/hooks/useModal.js";
 
 export function LandingPage() {
+    const {modal} = useModal()
     return (
         <>
             <LandingHeader />
@@ -26,7 +29,8 @@ export function LandingPage() {
                     {/*</div>*/}
                 </div>
             </main>
-            <ModalManager/>
+            <SignIn open={modal === 'signIn'}/>
+            <SignUp open={modal === 'signUp'}/>
         </>
     )
 }
