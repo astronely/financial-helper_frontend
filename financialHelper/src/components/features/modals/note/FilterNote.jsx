@@ -3,7 +3,8 @@ import {useModal} from "@/shared/hooks/useModal.js";
 import {Controller, useForm} from "react-hook-form";
 import {Modal} from "@/components/features/modals/Modal.jsx";
 import Select from "react-select";
-import DatePicker from "react-datepicker";
+import DatePicker, {registerLocale} from "react-datepicker";
+import { ru } from 'date-fns/locale';
 import {BoardService} from "@/features/boards/service/boardService.js";
 import {useParams} from "react-router";
 import {UserService} from "@/features/users/service/userService.js";
@@ -13,6 +14,8 @@ export function FilterNote({open = false}) {
     const [users, setUsers] = useState([]);
 
     const {submitHandler, baseInfo, updateItems, setUpdateItems} = useModal();
+
+    registerLocale('ru', ru)
 
     const {handleSubmit, control} = useForm({
         defaultValues: {
@@ -98,6 +101,8 @@ export function FilterNote({open = false}) {
                             placeholderText='Дата выполнения от'
                             selected={field.value}
                             onChange={field.onChange}
+                            locale='ru'
+                            isClearable
                             dateFormat="dd-MM-yyyy"
                         />
                     )}
@@ -113,6 +118,8 @@ export function FilterNote({open = false}) {
                             placeholderText='Дата выполнения до'
                             selected={field.value}
                             onChange={field.onChange}
+                            locale='ru'
+                            isClearable
                             dateFormat="dd-MM-yyyy"
                         />
                     )}
@@ -128,6 +135,8 @@ export function FilterNote({open = false}) {
                             placeholderText='Дата создания от'
                             selected={field.value}
                             onChange={field.onChange}
+                            locale='ru'
+                            isClearable
                             dateFormat="dd-MM-yyyy"
                         />
                     )}
@@ -143,6 +152,8 @@ export function FilterNote({open = false}) {
                             placeholderText='Дата создания до'
                             selected={field.value}
                             onChange={field.onChange}
+                            locale='ru'
+                            isClearable
                             dateFormat="dd-MM-yyyy"
                         />
                     )}

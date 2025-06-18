@@ -4,9 +4,9 @@ import {useForm} from "react-hook-form";
 import {useEffect} from "react";
 
 export function UpdateWallet({open = false}) {
-    const  {submitHandler, baseInfo} = useModal();
+    const {submitHandler, baseInfo} = useModal();
     const requiredMessage = "Обязательно для заполнения"
-    const {register, handleSubmit, reset, formState: { errors}} = useForm({
+    const {register, handleSubmit, reset, formState: {errors}} = useForm({
         defaultValues: {
             name: '',
         }
@@ -21,8 +21,19 @@ export function UpdateWallet({open = false}) {
     return (
         <Modal open={open}>
             <form className='modal__form' onSubmit={handleSubmit(submitHandler)}>
-                <input  {...register('name', {required: requiredMessage})} className={errors.name ? 'modal__input modal__error' : 'modal__input'}
-                        placeholder='Название' type='text' maxLength={30}/>
+                <div>
+                    <input  {...register('name', {
+                        required: requiredMessage,
+                        minLength: {
+                            value: 1,
+                            message: "Минимум 1 символ"
+                        }
+                    })} className={errors.name ? 'modal__input modal__error' : 'modal__input'}
+                            placeholder='Название' type='text' maxLength={30}/>
+                    {errors.name && (
+                        <div className='modal__error-message'>{errors.name.message}</div>
+                    )}
+                </div>
                 <button className='modal-button' type='submit'>Изменить</button>
             </form>
         </Modal>

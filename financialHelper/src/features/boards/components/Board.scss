@@ -84,3 +84,33 @@
   margin: 0;
   gap: 2rem 0;
 }
+
+@media (max-width: 470px) {
+  .board__buttons {
+    padding: 0.5rem 0;
+  }
+
+  .board {
+    padding: 2rem 0.5rem;
+    &__name {
+      font-size: 1.25rem;
+      text-wrap: wrap;
+      word-wrap: break-word;
+      word-break: normal;
+    }
+    &__description {
+      font-size: 0.85rem;
+
+      text-wrap: wrap;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .board__buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

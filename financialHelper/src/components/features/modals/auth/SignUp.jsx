@@ -18,20 +18,46 @@ export function SignUp({open = false}) {
     return (
         <Modal open={open}>
             <form className='modal__form' onSubmit={handleSubmit(submitHandler)}>
-                <input  {...register('email')} className='modal__input' placeholder='Email' type='text' maxLength={45}/>
+                <div>
+                    <input  {...register('email', {
+                        required: true,
+                        validate: (value) => {
+                            const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+                            return emailRegex.test(value) || "Введите корректный email адрес";
+                        },
+                        minLength: {
+                            value: 1,
+                            message: "Минимум 1 символ"
+                        }
+                    })} className='modal__input' placeholder='Email' type='text' maxLength={45}/>
+                    {errors.email && (
+                        <div className='modal__error-message'>{errors.email.message}</div>
+                    )}
+                </div>
                 <div>
                     <input {...register('name', {
                         required: true,
                         minLength: {
-                            value: 5,
-                            message: "Минимум 6 символов"
+                            value: 1,
+                            message: "Минимум 1 символ"
                         }
                     })} className='modal__input' placeholder='Имя пользователя' type='text' maxLength={30}/>
                     {errors.name && (
                         <div className='modal__error-message'>{errors.name.message}</div>
                     )}
                 </div>
-                <input {...register('password')} className='modal__input' placeholder='Пароль' type='password' maxLength={45}/>
+                <div>
+                    <input {...register('password', {
+                        required: true,
+                        minLength: {
+                            value: 8,
+                            message: "Минимум 8 символов"
+                        }
+                    })} className='modal__input' placeholder='Пароль' type='password' maxLength={45}/>
+                    {errors.password && (
+                        <div className='modal__error-message'>{errors.password.message}</div>
+                    )}
+                </div>
                 <button className='modal-button' type='submit'>Зарегистрироваться</button>
             </form>
         </Modal>

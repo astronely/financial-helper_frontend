@@ -1,9 +1,10 @@
 import {Controller, useForm} from "react-hook-form";
 import Select from "react-select";
-import DatePicker from "react-datepicker";
+import DatePicker, {registerLocale} from "react-datepicker";
 import {Modal} from "@/components/features/modals/Modal.jsx";
 import {useEffect, useState} from "react";
 import {useModal} from "@/shared/hooks/useModal.js";
+import { ru } from 'date-fns/locale';
 import {BoardService} from "@/features/boards/service/boardService.js";
 import {UserService} from "@/features/users/service/userService.js";
 import {useParams} from "react-router";
@@ -46,6 +47,8 @@ export function FilterTransaction({open = false}) {
     const boardService = new BoardService();
     const userService = new UserService();
     const params = useParams();
+
+    registerLocale('ru', ru)
 
     useEffect(() => {
         if (baseInfo.wallets) {
@@ -119,6 +122,8 @@ export function FilterTransaction({open = false}) {
                             placeholderText='Дата проведения с'
                             selected={field.value}
                             onChange={field.onChange}
+                            locale='ru'
+                            isClearable
                             dateFormat="dd-MM-yyyy"
                         />
                     )}
@@ -134,6 +139,8 @@ export function FilterTransaction({open = false}) {
                             placeholderText='Дата проведения до'
                             selected={field.value}
                             onChange={field.onChange}
+                            locale='ru'
+                            isClearable
                             dateFormat="dd-MM-yyyy"
                         />
                     )}

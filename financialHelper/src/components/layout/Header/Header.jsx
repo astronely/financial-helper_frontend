@@ -69,7 +69,7 @@ export function LandingHeader() {
     }
 
     return (
-        <Navbar expand="lg" className="navbar">
+        <Navbar expand="sm" className="navbar">
             <Container>
                 <img src="/icons/logo.svg" className='main-logo' alt='MainLogo'/>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>

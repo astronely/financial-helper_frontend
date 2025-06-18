@@ -17,18 +17,33 @@ export function AddWallet({open = false}) {
     return (
         <Modal open={open}>
             <form className='modal__form' onSubmit={handleSubmit(submitHandler)}>
-                <input  {...register('name', {required: requiredMessage})}
-                        className={errors.name ? 'modal__input modal__error' : 'modal__input'}
-                        placeholder='Название кошелька' type='text' maxLength={30}/>
-                <input {...register('balance', {
-                    required: requiredMessage,
-                    pattern: {
-                        value: /^\d+(\.\d{2})?$/,
-                        message: "Доступны только цифры"
-                    }
-                })} className={errors.balance ? 'modal__input modal__error' : 'modal__input'} placeholder='Баланс'
-                       type='text'
-                       pattern="^\d+(\.\d{2})?" title='Доступны только цифры в формате 123.12' maxLength={10}/>
+                <div>
+                    <input  {...register('name', {
+                        required: requiredMessage,
+                        minLength: {
+                            value: 1,
+                            message: "Минимум 1 символ"
+                        }
+                    })} className={errors.name ? 'modal__input modal__error' : 'modal__input'}
+                            placeholder='Название кошелька' type='text' maxLength={30}/>
+                    {errors.name && (
+                        <div className='modal__error-message'>{errors.name.message}</div>
+                    )}
+                </div>
+                <div>
+                    <input {...register('balance', {
+                        required: requiredMessage,
+                        pattern: {
+                            value: /^\d+(\.\d{2})?$/,
+                            message: "Требуется значение формата 123.12"
+                        }
+                    })} className={errors.balance ? 'modal__input modal__error' : 'modal__input'} placeholder='Баланс'
+                           type='text'
+                           pattern="^\d+(\.\d{2})?" title='Доступны только значения в формате 123.12' maxLength={10}/>
+                    {errors.balance && (
+                        <div className='modal__error-message'>{errors.balance.message}</div>
+                    )}
+                </div>
                 <button className='modal-button' type='submit'>Добавить</button>
             </form>
         </Modal>
