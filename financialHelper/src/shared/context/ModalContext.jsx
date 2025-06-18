@@ -11,6 +11,10 @@ export const ModalContext = createContext({
     setBaseInfo: null,
     updateItems: false,
     setUpdateItems: null,
+    resetFunctions: {},
+    setResetFunctions: null,
+    registerReset: null,
+    resetModal: null,
 })
 
 export const ModalProvider = ({ children }) => {
@@ -19,6 +23,20 @@ export const ModalProvider = ({ children }) => {
     const [submitHandler, setSubmitHandler] = useState(() => {})
     const [baseInfo, setBaseInfo] = useState({})
     const [updateItems, setUpdateItems] = useState(false)
+    const [resetFunctions, setResetFunctions] = useState({})
+
+    const registerReset = (modalName, resetFn) => {
+        setResetFunctions(prev => ({
+            ...prev,
+            [modalName]: resetFn
+        }));
+    };
+
+    const resetModal = (modalName) => {
+        if (resetFunctions[modalName]) {
+            resetFunctions[modalName]()
+        }
+    };
 
     return (
         <ModalContext.Provider value={{
@@ -27,6 +45,7 @@ export const ModalProvider = ({ children }) => {
             submitHandler, setSubmitHandler,
             baseInfo, setBaseInfo,
             updateItems, setUpdateItems,
+            registerReset, resetModal,
         }}>
             {children}
         </ModalContext.Provider>

@@ -1,17 +1,24 @@
 import {useModal} from "@/shared/hooks/useModal.js";
 import {useForm} from "react-hook-form";
 import {Modal} from "@/components/features/modals/Modal.jsx";
+import {useEffect} from "react";
 
 export function AddBoard({open = false}) {
-    const  {submitHandler} = useModal();
+    const  {submitHandler, registerReset} = useModal();
     const requiredMessage = "Обязательно для заполнения"
 
-    const {register, handleSubmit, formState: { errors}} = useForm({
+    const {register, handleSubmit,
+        formState: { errors}, reset} = useForm({
         defaultValues: {
             name: '',
             description: '',
         }
     })
+
+    useEffect(() => {
+        // console.log("register addBoard")
+        registerReset('addBoard', reset)
+    }, [reset])
 
 
     return (

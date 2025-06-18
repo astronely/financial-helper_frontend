@@ -6,7 +6,7 @@ import {useEffect} from "react";
 export function UpdateBoard({open = false}) {
     const requiredMessage = "Обязательно для заполнения"
 
-    const  {submitHandler, baseInfo} = useModal();
+    const  {submitHandler, baseInfo, registerReset} = useModal();
 
     const {register, handleSubmit, formState: { errors}, reset} = useForm({
         defaultValues: {
@@ -26,7 +26,10 @@ export function UpdateBoard({open = false}) {
                 }
             )
         }
-    }, [baseInfo])
+
+        // console.log("register updateBoard")
+        // registerReset('updateBoard', reset)
+    }, [reset, baseInfo])
 
     return (
         <Modal open={open}>

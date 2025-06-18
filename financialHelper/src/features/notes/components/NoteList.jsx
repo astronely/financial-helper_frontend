@@ -11,7 +11,8 @@ export function NoteList() {
     const [notes, setNotes] = useState([]);
     const [queryParams, setQueryParams] = useState('');
     const [usedParams, setUsedParams] = useState([])
-    const {updateItems, setUpdateItems, setIsActive, setModal, baseInfo, setBaseInfo, setSubmitHandler} = useModal()
+    const {updateItems, setUpdateItems, setIsActive,
+        setModal, baseInfo, setBaseInfo, setSubmitHandler, resetModal} = useModal()
 
     const noteService = new NoteService();
     const params = useParams();
@@ -27,6 +28,8 @@ export function NoteList() {
             const response = await noteService.create(dataToSend)
             setUpdateItems(!updateItems)
             setIsActive(false)
+
+            resetModal('addNote')
         } catch (err) {
             if (err.message.includes("All fields")) {
                 toast.error("Заполните все поля")
@@ -75,10 +78,10 @@ export function NoteList() {
 
     const handleCompleteNote = async data => {
         try {
-            console.log("in complete node")
+            // console.log("in complete node")
             const response = await noteService.complete(data)
             setUpdateItems(!updateItems)
-            console.log(updateItems)
+            // console.log(updateItems)
         } catch (err) {
             if (err.status !== 401) {
                 toast.error("Ошибка при изменении состояни заметки: " + err.message)
@@ -89,7 +92,7 @@ export function NoteList() {
 
     const handleFilterNote = async data => {
         try {
-            console.log(data)
+            // console.log(data)
             let filtersQuery = "?"
             setUsedParams([]);
             for (const key in data) {
@@ -101,7 +104,7 @@ export function NoteList() {
                         } else {
                             filtersQuery += "filterInfo." + key + "=" + value.value.toString() + "&"
                         }
-                        console.log(key)
+                        // console.log(key)
                         setUsedParams(prev => ([...prev, key]))
                     }
                 }
@@ -110,7 +113,7 @@ export function NoteList() {
             if (filtersQuery.endsWith("&")) {
                 filtersQuery = filtersQuery.slice(0, -1);
             }
-            console.log(filtersQuery)
+            // console.log(filtersQuery)
             setQueryParams(filtersQuery)
         } catch (err) {
             toast.error("Ошибка применения фильтрации: " + err.message)

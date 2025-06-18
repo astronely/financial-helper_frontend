@@ -2,17 +2,24 @@ import {Modal} from "@/components/features/modals/Modal.jsx";
 import {useForm} from "react-hook-form";
 import {useModal} from "@/shared/hooks/useModal.js";
 import {ErrorMessage} from "@hookform/error-message";
+import {useEffect} from "react";
 
 export function AddWallet({open = false}) {
-    const {submitHandler} = useModal();
+    const {submitHandler, registerReset} = useModal();
     const requiredMessage = "Обязательно для заполнения"
 
-    const {register, handleSubmit, formState: {errors}} = useForm({
+    const {register, handleSubmit,
+        formState: {errors}, reset} = useForm({
         defaultValues: {
             name: '',
             balance: '',
         }
     })
+
+    useEffect(() => {
+        // console.log("register addWallet")
+        registerReset('addWallet', reset)
+    }, [reset])
 
     return (
         <Modal open={open}>

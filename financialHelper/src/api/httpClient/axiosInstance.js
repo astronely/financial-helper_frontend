@@ -14,7 +14,7 @@ const axiosInstance = axios.create({
     withCredentials: true
 });
 
-console.log(axiosInstance.baseURL)
+// console.log(axiosInstance.baseURL)
 
 setupInterceptors(axiosInstance);
 

@@ -2,11 +2,13 @@ import {Modal} from '../Modal.jsx'
 import {useForm} from "react-hook-form";
 import '../Modal.scss'
 import {useModal} from "@/shared/hooks/useModal.js";
+import {useEffect} from "react";
 
 export function SignUp({open = false}) {
-    const  { submitHandler} = useModal();
+    const  { submitHandler, registerReset} = useModal();
 
-    const {register, handleSubmit, formState: {errors}} = useForm({
+    const {register, handleSubmit,
+        formState: {errors}, reset} = useForm({
         defaultValues: {
             email: '',
             name: '',
@@ -14,6 +16,11 @@ export function SignUp({open = false}) {
             password: ''
         }
     })
+
+    useEffect(() => {
+        // console.log("register signUp")
+        registerReset('signUp', reset)
+    }, [reset]);
 
     return (
         <Modal open={open}>

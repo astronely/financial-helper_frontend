@@ -13,7 +13,8 @@ export function TransactionsLayout() {
     const [queryParams, setQueryParams] = useState('');
     const [usedParams, setUsedParams] = useState([]);
     const params = useParams()
-    const {updateItems, setUpdateItems, setIsActive, setModal, baseInfo, setBaseInfo, setSubmitHandler} = useModal()
+    const {updateItems, setUpdateItems, setIsActive,
+        setModal, baseInfo, setBaseInfo, setSubmitHandler, resetModal} = useModal()
 
 
     const transactionService = new TransactionService();
@@ -45,7 +46,7 @@ export function TransactionsLayout() {
             // console.log(response)
             setUpdateItems(!updateItems)
             setIsActive(false)
-
+            resetModal('addTransaction')
         } catch (err) {
             if (err.message.includes("All fields")) {
                 toast.error("Заполните все поля")
@@ -83,6 +84,8 @@ export function TransactionsLayout() {
             // console.log(response)
             setUpdateItems(!updateItems)
             setIsActive(false)
+
+            resetModal('updateTransaction')
         } catch (err) {
             if (err.message.includes("All fields")) {
                 toast.error("Заполните все поля")
@@ -206,7 +209,7 @@ export function TransactionsLayout() {
     useEffect(() => {
         transactionService.listFilter(params.id, queryParams)
             .then(res => {
-                console.log("Transactions: ", res)
+                // console.log("Transactions: ", res)
                 setTransactions([])
                 setTransactions(res.transactions)
             })

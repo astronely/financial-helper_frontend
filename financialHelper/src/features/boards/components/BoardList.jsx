@@ -14,7 +14,8 @@ export function BoardList() {
     const navigate = useNavigate()
     const [boards, setBoards] = useState([]);
     const boardService = new BoardService()
-    const {setIsActive, setModal, setSubmitHandler, setBaseInfo, updateItems, setUpdateItems} = useModal();
+    const {setIsActive, setModal, setSubmitHandler, setBaseInfo,
+        updateItems, setUpdateItems, resetModal} = useModal();
     const {reset} = useForm()
 
     const setBoard = async id => {
@@ -42,7 +43,8 @@ export function BoardList() {
             console.log(response)
             setUpdateItems(!updateItems)
             setIsActive(false)
-            reset()
+
+            resetModal('addBoard')
         } catch (error) {
             toast.error("Ошибка добавления доски: " + error.message)
             console.error("Не удалось создать новую доску: " + error)

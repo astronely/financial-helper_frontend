@@ -11,7 +11,8 @@ import {toast} from "react-toastify";
 export function WalletsLayout() {
     const [wallets, setWallets] = useState([]);
     const params = useParams()
-    const {setIsActive, setModal, setSubmitHandler, setBaseInfo, updateItems, setUpdateItems} = useModal();
+    const {setIsActive, setModal, setSubmitHandler, setBaseInfo,
+        updateItems, setUpdateItems, resetModal} = useModal();
     const {reset} = useForm()
 
     const walletService = new WalletService()
@@ -38,7 +39,8 @@ export function WalletsLayout() {
             setUpdateItems(!updateItems)
             // console.log(response)
             setIsActive(false)
-            reset()
+
+            resetModal('addWallet')
         } catch (error) {
             if (error.message.includes("All fields")) {
                 toast.error("Заполните все поля")

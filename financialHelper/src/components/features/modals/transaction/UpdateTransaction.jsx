@@ -18,7 +18,7 @@ export function UpdateTransaction({open = false}) {
     ]);
     const [wallets, setWallets] = useState([])
 
-    const {submitHandler, baseInfo} = useModal();
+    const {submitHandler, baseInfo, registerReset} = useModal();
     const {register, handleSubmit,
         reset, formState: {errors},
         watch, control, getValues} = useForm({
@@ -51,6 +51,9 @@ export function UpdateTransaction({open = false}) {
             }))
             setWallets(options)
         }
+
+        // console.log("register updateTransaction")
+        // registerReset('updateTransaction', reset)
     }, [baseInfo.wallets, baseInfo.categories, reset])
 
     useEffect(() => {

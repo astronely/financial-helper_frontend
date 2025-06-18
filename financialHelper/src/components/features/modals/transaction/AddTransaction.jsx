@@ -17,11 +17,11 @@ export function AddTransaction({open = false}) {
 
     registerLocale('ru', ru)
 
-    const {submitHandler, baseInfo} = useModal();
+    const {submitHandler, baseInfo, registerReset} = useModal();
 
     const {register, handleSubmit,
         formState: {errors}, control,
-        watch, getValues} = useForm({
+        watch, getValues, reset} = useForm({
         defaultValues: {
             from_wallet: null,
             to_wallet: null,
@@ -55,6 +55,10 @@ export function AddTransaction({open = false}) {
             {value: 'expense', label: 'Оплата'},
             {value: 'transfer', label: 'Перевод'},
         ])
+
+        // console.log("register addTransaction")
+        registerReset('addTransaction', reset)
+
     }, [baseInfo])
 
     return (

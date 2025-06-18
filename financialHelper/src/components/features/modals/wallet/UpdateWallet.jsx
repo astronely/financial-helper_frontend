@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 import {useEffect} from "react";
 
 export function UpdateWallet({open = false}) {
-    const {submitHandler, baseInfo} = useModal();
+    const {submitHandler, baseInfo, registerReset} = useModal();
     const requiredMessage = "Обязательно для заполнения"
     const {register, handleSubmit, reset, formState: {errors}} = useForm({
         defaultValues: {
@@ -16,6 +16,9 @@ export function UpdateWallet({open = false}) {
         if (baseInfo?.name) {
             reset({name: baseInfo.name});
         }
+
+        // console.log("register updateWallet")
+        // registerReset('updateWallet', reset)
     }, [baseInfo, reset])
 
     return (

@@ -17,7 +17,7 @@ export class BoardService {
 
     async listByUserId() {
         // if (!data.userID) throw new Error('All fields are required')
-        console.log("IN SERVICE")
+        // console.log("IN SERVICE")
         return await this.repo.listByUserID()
     }
 

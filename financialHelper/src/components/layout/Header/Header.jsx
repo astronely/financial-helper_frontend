@@ -11,7 +11,7 @@ import {getJwtPayload, getTokenFromCookie} from "@/shared/utils/jwt.js";
 import {toast} from "react-toastify";
 
 export function LandingHeader() {
-    const {setIsActive, setModal, setSubmitHandler, submitHandler} = useModal();
+    const {setIsActive, setModal, setSubmitHandler, resetModal} = useModal();
     const navigate = useNavigate();
     const {reset} = useForm()
     const service = new UserService()
@@ -45,7 +45,8 @@ export function LandingHeader() {
             setIsActive(false);
             toast.success("Вы успешно зарегистрировались!")
             const openRes = await openModal("signIn")
-            reset()
+
+            resetModal("signUp")
         } catch (error) {
             if (error.message.includes("All fields")) {
                 toast.error("Заполните все поля!")

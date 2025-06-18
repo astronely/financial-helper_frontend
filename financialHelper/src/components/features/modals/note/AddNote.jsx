@@ -1,16 +1,23 @@
 import {Modal} from "@/components/features/modals/Modal.jsx";
 import {useModal} from "@/shared/hooks/useModal.js";
 import {useForm} from "react-hook-form";
+import {useEffect} from "react";
 
 export function AddNote({open = false}) {
-    const  {submitHandler} = useModal();
+    const  {submitHandler, registerReset} = useModal();
     const requiredMessage = "Обязательно для заполнения"
 
-    const {register, handleSubmit, formState: { errors}} = useForm({
+    const {register, handleSubmit,
+        formState: { errors}, reset} = useForm({
         defaultValues: {
             content: '',
         }
     })
+
+    useEffect(() => {
+        // console.log("register addNote")
+        registerReset('addNote', reset)
+    }, [reset]);
 
     return (
         <Modal open={open}>

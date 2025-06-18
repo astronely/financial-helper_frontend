@@ -8,7 +8,7 @@ export function getTokenFromCookie(name) {
 }
 
 export function getJwtPayload(token) {
-    console.log(token)
+    // console.log(token)
     if (!token) return null
     try {
         return jwtDecode(token);
