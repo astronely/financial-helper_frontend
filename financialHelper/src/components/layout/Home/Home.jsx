@@ -49,7 +49,7 @@ export function Home() {
                             <span className="header-text">Лучшая инвестиция – это инвестиция в себя через накопления</span>
                             <span className="subtitle-text">Учет доходов и финансов, помощь в накоплении средств и достижении финансовых целей</span>
                         </div>
-                        <button className="btn-action" onClick={() => openModal(setIsActive, setModal, "signUp")}>Начать пользоваться</button>
+                        <button className="btn-action" onClick={() => openModal("signUp")}>Начать пользоваться</button>
                     </Col>
                     <Col md="6" sm="12" className="picture-block">
                         <img className="col-12 picture" src="/pictures/title-picture.png"/>
