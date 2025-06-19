@@ -94,6 +94,10 @@
   &__content {
     font-family: "Montserrat Alternates", serif;
     font-size: 1.5rem;
+
+    text-wrap: wrap;
+    word-break: break-all;
+    word-wrap: break-word;
   }
 
   &__checkbox {

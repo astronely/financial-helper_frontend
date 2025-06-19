@@ -4,9 +4,42 @@ import './text.scss'
 import './buttons.scss'
 import {useModal} from "@/shared/hooks/useModal.js";
 import {openModal} from "@/shared/utils/modalUtils.js";
+import {toast} from "react-toastify";
+import {UserService} from "@/features/users/service/userService.js";
 
 export function Home() {
-    const  {setIsActive, setModal} = useModal();
+    const  {setIsActive, setModal, setSubmitHandler, resetModal} = useModal();
+    const service = new UserService();
+
+    const handleRegister = async data => {
+        try {
+            const response = await service.registerUser(data);
+            console.log("HandleRegister response:", response)
+            setIsActive(false);
+            toast.success("Вы успешно зарегистрировались!")
+            const openRes = await openModal("signIn")
+
+            resetModal("signUp")
+        } catch (error) {
+            if (error.message.includes("All fields")) {
+                toast.error("Заполните все поля!")
+            } else if (error.status === undefined) {
+                toast.error("Ошибка доступа к серверу")
+            } else if (error.status === 409) {
+                toast.error("Пользователь с такой почтой уже зарегистрирован!")
+            }
+            console.error("Ошибка при авторизации:", error)
+        }
+    }
+
+    async function openModal(modalName) {
+        setIsActive(true)
+        setModal(modalName)
+        if (modalName === "signUp") {
+            setSubmitHandler(() => handleRegister)
+        }
+    }
+
     return (
         <Container>
             <div className="base-info">

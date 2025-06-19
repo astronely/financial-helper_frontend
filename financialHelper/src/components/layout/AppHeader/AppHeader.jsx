@@ -91,7 +91,6 @@ export function AppHeader() {
                         }
                         {matchProfile ?
                             <>
-                                <Nav.Link className='nav-link navbar-link nav-text' href="#" onClick={() => navigate(`/boards`)}>Доски</Nav.Link>
                             </>
                             :
                             <></>
