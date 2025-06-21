@@ -41,5 +41,15 @@
     border-radius: 1rem;
 
     padding: 0.5rem;
+
+    word-wrap: anywhere;
+  }
+}
+
+@media (max-width: 576px) {
+  .boardusers {
+    &__user {
+      font-size: 1.5rem;
+    }
   }
 }
