@@ -25,7 +25,7 @@ export function AddNote({open = false}) {
                 <div>
                     <textarea  {...register('content', {required: requiredMessage})}
                                className={errors.content ? 'modal__textarea modal__error' : 'modal__textarea'}
-                               placeholder='Текст заметки' type='text' maxLength={1024}/>
+                               placeholder='Текст заметки' type='text'/>
                     {errors.content && (
                         <div className='modal__error-message'>{errors.content.message}</div>
                     )}

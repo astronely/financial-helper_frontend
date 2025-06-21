@@ -18,6 +18,12 @@
   }
 }
 
+@media (max-width: 576px) {
+  .wallet__info {
+    width: 100%;
+  }
+}
+
 /* xs */
 @media (min-width: 0px) {
   .wallet{

@@ -24,7 +24,7 @@ export function Note({note, openModal}) {
                 <button onClick={() => openModal('updateNote', note, note.id)}
                         className="icon-button icon-button__pen"><Pen/></button>
                 <button onClick={() => openModal('confirm', note, note.id)}
-                        className="icon-button icon-button__cross"><CircleX/></button>
+                        className="icon-button icon-button__cross note__button-cross"><CircleX/></button>
 
             </div>
             <div className='note__content'>{note.info.content}</div>

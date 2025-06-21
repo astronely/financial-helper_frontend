@@ -14,6 +14,12 @@
   }
 }
 
+@media (max-width: 576px) {
+  .wallet__card {
+    //flex-direction: column;
+  }
+}
+
 /* xs */
 @media (min-width: 0px) {
   .wallet__card {

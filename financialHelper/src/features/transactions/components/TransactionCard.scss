@@ -40,6 +40,14 @@
   }
 }
 
+@media (max-width: 576px) {
+  .history-card {
+    &__header {
+      width: 100%;
+    }
+  }
+}
+
 @media (max-width: 470px) {
   .history-card {
     &__info {

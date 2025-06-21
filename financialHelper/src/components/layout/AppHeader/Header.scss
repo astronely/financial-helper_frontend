@@ -53,6 +53,12 @@
   height: 47px;
 }
 
+@media (max-width: 576px) {
+  .navbar {
+    padding: 0;
+  }
+}
+
 /* xs */
 @media (min-width: 0px) {
   .nav-text {

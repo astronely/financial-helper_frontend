@@ -2,6 +2,7 @@
   &-with-icon {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     gap: 2px;
     align-items: center;
     word-wrap: anywhere;
@@ -31,16 +32,24 @@
   }
 }
 
+@media (max-width: 576px) {
+  .text-with-icon {
+    width: 100%;
+  }
+}
+
 /* xs */
 @media (min-width: 0px) {
   .icon-button{
     &__pen {
       width: 20px;
       height: 20px;
+      align-self: flex-start;
     }
     &__cross {
-      width: 25%;
-      height: 25%;
+      width: 25px;
+      height: 25px;
+      align-self: flex-start;
     }
   }
 
