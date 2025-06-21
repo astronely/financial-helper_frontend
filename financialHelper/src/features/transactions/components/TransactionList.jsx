@@ -19,7 +19,7 @@ export function TransactionList({transactions, usedParams, openModal}) {
                     <button onClick={() => {
                         openModal('filterTransaction')
                     }}
-                            className='icon-button'><SlidersHorizontal/></button>
+                            className='icon-button icon-button__filter'><SlidersHorizontal/></button>
                 </div>
                 <div className={`history__header-div ${usedParams.length > 0 ? 'history__header-div-visible' : ''}`} />
                 <div className={`history__filters ${usedParams.length > 0 ? 'history__filters-visible' : ''}`}>

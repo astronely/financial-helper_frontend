@@ -30,11 +30,20 @@
   &__cross {
     padding: 0.25rem;
   }
+
+  &__filter {
+  }
 }
 
 @media (max-width: 576px) {
   .text-with-icon {
     width: 100%;
+  }
+  .icon-button {
+    &__filter {
+      width: 30px;
+      height: 30px;
+    }
   }
 }
 
@@ -69,6 +78,10 @@
       height: 25px;
     }
     &__cross {
+      width: auto;
+      height: auto;
+    }
+    &__filter {
       width: auto;
       height: auto;
     }
