@@ -15,6 +15,10 @@
   font-family: 'Montserrat Alternates', 'serif';
   color: var(--card-text-color);
 
+  &__name {
+    word-wrap: anywhere;
+  }
+
   &__card {
     display: flex;
     flex-direction: column;
