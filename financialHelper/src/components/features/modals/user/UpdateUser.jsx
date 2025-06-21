@@ -28,7 +28,7 @@ export function UpdateUser({open = false}) {
     return (
         <Modal open={open}>
             <form className='modal__form' onSubmit={handleSubmit(submitHandler)}>
-                <input  {...register('name', {required: requiredMessage})} className={errors.name ? 'modal__input modal__error' : 'modal__input'} placeholder='Имя пользователя' type='text' maxLength={128}/>
+                <input  {...register('name', {required: requiredMessage})} className={errors.name ? 'modal__input modal__error' : 'modal__input'} placeholder='Имя пользователя' type='text' maxLength={30}/>
                 <button className='modal-button' type='submit'>Изменить</button>
             </form>
         </Modal>

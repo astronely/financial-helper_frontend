@@ -15,7 +15,7 @@ export function TransactionList({transactions, usedParams, openModal}) {
         <>
             <div className='history__header'>
                 <div className='history__header-top'>
-                    <div>Все операции</div>
+                    <div className='history__header-top-title'>Фильтры</div>
                     <button onClick={() => {
                         openModal('filterTransaction')
                     }}
