@@ -2,6 +2,14 @@ import {Transaction} from "@/features/transactions/components/Transaction.jsx";
 import {SlidersHorizontal} from "lucide-react";
 
 export function TransactionList({transactions, usedParams, openModal}) {
+    const queryDict = {
+        "category": "Категория",
+        "transactionDate": "Дата проведения от",
+        "transactionDateEnd": "Дата проведения до",
+        "type": "Тип операции",
+        "fromWalletId": "С кошелька",
+        "name": "Магазин",
+    }
 
     return (
         <>
@@ -18,7 +26,7 @@ export function TransactionList({transactions, usedParams, openModal}) {
                     <span className='history__filters-title'>Активные фильтры</span>
                     <div className="history__filters-list">
                         {usedParams.map((item) => (
-                            <div className='history__filter'>{item}</div>
+                            <div className='history__filter'>{queryDict[item]}</div>
                         ))}
                     </div>
                 </div>

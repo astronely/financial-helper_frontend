@@ -14,6 +14,16 @@ export function NoteList() {
     const {updateItems, setUpdateItems, setIsActive,
         setModal, baseInfo, setBaseInfo, setSubmitHandler, resetModal} = useModal()
 
+    const queryDict = {
+        "ownerId": "Владелец",
+        "performerId": "Исполнитель",
+        "status": "Статус",
+        "completionDateStart": "Дата выполнения от",
+        "completionDateEnd": "Дата выполнения до",
+        "createdAtStart": "Дата создания от",
+        "createdAtEnd": "Дата создания до",
+    }
+
     const noteService = new NoteService();
     const params = useParams();
 
@@ -121,6 +131,7 @@ export function NoteList() {
             }
             // console.log(filtersQuery)
             setQueryParams(filtersQuery)
+            setIsActive(false)
         } catch (err) {
             toast.error("Ошибка применения фильтрации: " + err.message)
             console.error("Ошибка применения фильтрации: " + err)
@@ -170,7 +181,7 @@ export function NoteList() {
                 <span className='notes__filters-title'>Активные фильтры</span>
                 <div className='notes__filters-list'>
                     {usedParams.map((item, key) => (
-                        <div className='notes__filter' key={key}>{item}</div>
+                        <div className='notes__filter' key={key}>{queryDict[item]}</div>
                     ))}
                 </div>
             </div>

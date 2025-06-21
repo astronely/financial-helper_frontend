@@ -16,7 +16,6 @@ export function TransactionsLayout() {
     const {updateItems, setUpdateItems, setIsActive,
         setModal, baseInfo, setBaseInfo, setSubmitHandler, resetModal} = useModal()
 
-
     const transactionService = new TransactionService();
     const walletService = new WalletService()
 
