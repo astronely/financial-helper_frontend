@@ -70,18 +70,16 @@ export function LandingHeader() {
             const response = await check("/boards");
             if (response.isAllowed) {
                 navigate("/boards")
-                return
             }
         } catch (error) {
             console.error("Ошибка авторизации: " + error)
-        }
-
-        setIsActive(true)
-        setModal(modalName)
-        if (modalName === "signIn") {
-            setSubmitHandler(() => handleLogin)
-        } else if (modalName === "signUp") {
-            setSubmitHandler(() => handleRegister)
+            setIsActive(true)
+            setModal(modalName)
+            if (modalName === "signIn") {
+                setSubmitHandler(() => handleLogin)
+            } else if (modalName === "signUp") {
+                setSubmitHandler(() => handleRegister)
+            }
         }
     }
 
