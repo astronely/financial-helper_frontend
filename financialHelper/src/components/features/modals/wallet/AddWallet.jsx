@@ -46,7 +46,7 @@ export function AddWallet({open = false}) {
                         }
                     })} className={errors.balance ? 'modal__input modal__error' : 'modal__input'} placeholder='Баланс'
                            type='text'
-                           pattern="^\d+(\.\d{2})?" title='Доступны только значения в формате 123.12' maxLength={10}/>
+                           pattern="^\d+(\.\d{1,2})?" title='Доступны только значения в формате 123.12' maxLength={10}/>
                     {errors.balance && (
                         <div className='modal__error-message'>{errors.balance.message}</div>
                     )}
