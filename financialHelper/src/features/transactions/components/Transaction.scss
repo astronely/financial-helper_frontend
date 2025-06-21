@@ -106,6 +106,12 @@
   }
 }
 
+@media (max-width: 576px) {
+  .history {
+    padding: 0;
+  }
+}
+
 /* xs */
 @media (min-width: 0px) {
   .history {

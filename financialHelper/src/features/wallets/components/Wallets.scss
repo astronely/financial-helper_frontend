@@ -50,12 +50,14 @@
   }
 }
 
-
-/* xs */
-@media (min-width: 0px) {
+@media (max-width: 576px) {
   .wallets {
     padding: 0;
   }
+}
+
+/* xs */
+@media (min-width: 0px) {
   .wallets__title {
     font-size: 12px;
     padding: 4px;
