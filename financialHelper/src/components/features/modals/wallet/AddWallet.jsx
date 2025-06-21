@@ -41,7 +41,7 @@ export function AddWallet({open = false}) {
                     <input {...register('balance', {
                         required: requiredMessage,
                         pattern: {
-                            value: /^\d+(\.\d{2})?$/,
+                            value: /^\d+(\.\d{1,2})?$/,
                             message: "Требуется значение формата 123.12"
                         }
                     })} className={errors.balance ? 'modal__input modal__error' : 'modal__input'} placeholder='Баланс'
