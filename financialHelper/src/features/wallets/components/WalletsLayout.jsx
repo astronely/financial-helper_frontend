@@ -48,7 +48,9 @@ export function WalletsLayout() {
                 toast.error("Ошибка подключения к серверу")
             } else if (error.status === 500) {
                 toast.error("Кошелек с таким именем уже есть")
-            } else if (error.status !== 401) {
+            } else if (error.status === 401) {
+                toast.error("Недостаточно прав для добавления кошелька")
+            } else {
                 toast.error("Ошибка добавления кошелька: " + error.message)
             }
             console.error("Не удалось добавить кошелек: " + error)
@@ -76,7 +78,9 @@ export function WalletsLayout() {
                 toast.error("Ошибка подключения к серверу")
             } else if (error.status === 500) {
                 toast.error("Кошелек с таким именем уже есть")
-            } else if (error.status !== 401) {
+            } else if (error.status === 401) {
+                toast.error("Недостаточно прав для обновления кошелька")
+            } else {
                 toast.error("Ошибка обновления кошелька: " + error.message)
             }
             console.error("Не удалось обновить кошелек: " + error)
@@ -91,7 +95,9 @@ export function WalletsLayout() {
             setIsActive(false)
             reset()
         } catch (error) {
-            if (error.status !== 401) {
+            if (error.status === 401) {
+                toast.error("Недостаточно прав для удаления кошелька")
+            } else {
                 toast.error("Ошибка удаления кошелька: " + error.message)
             }
             console.error("Не удалось удалить кошелек: " + error)

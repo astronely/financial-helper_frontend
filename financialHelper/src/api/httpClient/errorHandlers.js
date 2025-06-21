@@ -5,7 +5,7 @@ export const handleError = (error) => {
         switch (error.response.status) {
             case 401:
                 console.error("Unauthorized");
-                toast.error("Ошибка доступа");
+                // toast.error("Ошибка доступа");
                 // window.location.href = '/login';
                 break;
             case 500:

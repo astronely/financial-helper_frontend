@@ -3,6 +3,7 @@ import {UserService} from "@/features/users/service/userService.js";
 import {useEffect, useState} from "react";
 import {useModal} from "@/shared/hooks/useModal.js";
 import {toast} from "react-toastify";
+import {getJwtPayload} from "@/shared/utils/jwt.js";
 
 export function ProfileLayout() {
     const userService = new UserService()
@@ -29,6 +30,8 @@ export function ProfileLayout() {
             const response = await userService.update(dataToSend)
             setUpdateItems(!updateItems)
             setIsActive(false)
+
+            localStorage.setItem("username", data.name)
         } catch (err) {
             toast.error("Ошибка изменения данных пользователя: " + err.message)
             console.error(err)

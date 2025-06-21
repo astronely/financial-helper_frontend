@@ -56,7 +56,9 @@ export function NoteList() {
                 toast.error("Заполните все поля")
             } else if (err.status === undefined) {
                 toast.error("Ошибка подключения к серверу")
-            } else if (err.status !== 401) {
+            } else if (err.status === 401) {
+                toast.error("Недостаточно прав для обновления заметки")
+            } else {
                 toast.error("Ошибка обновления заметки: " + err.message)
             }
             console.error("Не удалось изменить заметку: " + err)
@@ -69,7 +71,9 @@ export function NoteList() {
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
-            if (err.status !== 401) {
+            if (err.status === 401) {
+                toast.error("Недостаточно прав для удаления заметки")
+            } else {
                 toast.error("Ошибка удаления заметки: " + err.message)
             }
             console.error("Не удалось удалить заметку: " + err)
@@ -83,7 +87,9 @@ export function NoteList() {
             setUpdateItems(!updateItems)
             // console.log(updateItems)
         } catch (err) {
-            if (err.status !== 401) {
+            if (err.status === 401) {
+                toast.error("Недостаточно прав для изменения статуса заметки")
+            } else {
                 toast.error("Ошибка при изменении состояни заметки: " + err.message)
             }
             console.error("Не удалось отметить заметку: " + err)

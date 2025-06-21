@@ -12,7 +12,7 @@ export function UpdateTransaction({open = false}) {
 
     const [categories, setCategories] = useState([]);
     const [types, setTypes] = useState([
-        {value: 'income', label: 'Поступление'},
+        {value: 'income', label: 'Пополнение'},
         {value: 'expense', label: 'Оплата'},
         {value: 'transfer', label: 'Перевод'},
     ]);

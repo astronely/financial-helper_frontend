@@ -27,6 +27,9 @@ export function BoardList() {
             }
             navigate("/board/"+id)
         } catch (err) {
+            if (err.status === 500) {
+                toast.error("Ошибка подключения к доске: " + err.message)
+            }
             toast.error("Ошибка подключения к доске: " + err.message)
             console.error("Ошибка подключения к доске:" + err)
         }
@@ -46,7 +49,11 @@ export function BoardList() {
 
             resetModal('addBoard')
         } catch (error) {
-            toast.error("Ошибка добавления доски: " + error.message)
+            if (error.status === 500) {
+                toast.error("Доска с таким названием уже существует")
+            } else {
+                toast.error("Ошибка добавления доски: " + error.message)
+            }
             console.error("Не удалось создать новую доску: " + error)
         }
     }
@@ -64,7 +71,11 @@ export function BoardList() {
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
-            if (err.status !== 401) {
+            if (err.status === 401) {
+                toast.error("Недостаточно прав для обновления доски")
+            } else if (err.status === 500) {
+                toast.error("Доска с таким названием уже существует")
+            } else {
                 toast.error("Ошибка обновления доски: " + err.message)
             }
             console.error("Не удалось изменить доску: " + err)
@@ -78,9 +89,12 @@ export function BoardList() {
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
-            if (err.status !== 401) {
+            if (err.status === 401) {
+                toast.error("Недостаточно прав для удаления доски")
+            } else {
                 toast.error("Ошибка удаления доски: " + err.message)
             }
+
             console.error("Не удалось удалить доску: " + err)
         }
     }

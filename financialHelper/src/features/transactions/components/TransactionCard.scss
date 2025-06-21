@@ -30,12 +30,25 @@
     text-align: center;
 
     color: var(--gray);
+    word-wrap: anywhere;
   }
 
   &__operation-date {
     display: flex;
     //font-size: 16px;
     justify-content: center;
+  }
+}
+
+@media (max-width: 470px) {
+  .history-card {
+    &__info {
+      width: 50%;
+    }
+
+    &__price {
+      width: 50%;
+    }
   }
 }
 

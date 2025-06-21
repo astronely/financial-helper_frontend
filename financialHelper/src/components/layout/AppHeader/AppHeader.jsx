@@ -47,7 +47,12 @@ export function AppHeader() {
                     console.log(res.url)
                     setBaseInfo({inviteUrl: BASE_URL + "/invite/" + res.url})
                 })
-                .catch(err => console.error("Ошибка получения ссылки приглашения: " + err))
+                .catch(err => {
+                    if (err.status === 401) {
+                        toast.error("Недостаточно прав для получения пригласительной ссылки")
+                    }
+                    console.error("Ошибка получения ссылки приглашения: " + err)
+                })
         }
 
     }

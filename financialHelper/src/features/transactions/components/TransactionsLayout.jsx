@@ -91,7 +91,9 @@ export function TransactionsLayout() {
                 toast.error("Заполните все поля")
             } else if (err.status === undefined) {
                 toast.error("Ошибка подключения к серверу")
-            } else if (err.status !== 401) {
+            } else if (err.status === 401) {
+                toast.error("Недостаточно прав для обновления транзакции")
+            } else {
                 toast.error("Ошибка обновления операции: " + err.message)
             }
             console.error("Не удалось обновить операцию: " + err)
@@ -105,7 +107,9 @@ export function TransactionsLayout() {
             setUpdateItems(!updateItems)
             setIsActive(false)
         } catch (err) {
-            if (err.status !== 401) {
+            if (err.status === 401) {
+                toast.error("Недостаточно прав для удаления транзакции")
+            } else {
                 toast.error("Ошибка удаления операции: " + err.message)
             }
             console.error("Не удалось удалить операцию: " + err)

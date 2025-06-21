@@ -51,7 +51,7 @@ export function AddTransaction({open = false}) {
             setCategories(options)
         }
         setTypes([
-            {value: 'income', label: 'Поступление'},
+            {value: 'income', label: 'Пополнение'},
             {value: 'expense', label: 'Оплата'},
             {value: 'transfer', label: 'Перевод'},
         ])

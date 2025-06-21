@@ -12,6 +12,7 @@ export function BoardUsers() {
     const params = useParams()
 
     const [boardUsers, setBoardUsers] = useState([]);
+    const [boardAdmin, setBoardAdmin] = useState({})
 
     const handleDeleteUser = async ({data, id}) => {
         try {
@@ -35,6 +36,14 @@ export function BoardUsers() {
     }
 
     useEffect(() => {
+        boardService.get({boardID: params.id})
+            .then(res => {
+                console.log("Board")
+                console.log(res.board.info.ownerId)
+                setBoardAdmin(res.board.info.ownerId)
+            })
+            .catch(err => console.error(err))
+
         boardService.getBoardUsers(params.id)
             .then(res => {
                 console.log(res)
@@ -46,7 +55,7 @@ export function BoardUsers() {
     return (
         <div className='boardusers__list'>
             {boardUsers.map((item) => (
-                <BoardUserCard user={item} openModal={openModal} key={item.userId}/>
+                <BoardUserCard user={item} admin={boardAdmin} openModal={openModal} key={item.userId}/>
             ))}
         </div>
     )

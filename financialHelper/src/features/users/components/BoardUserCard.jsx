@@ -2,7 +2,7 @@ import {CircleX, Pen} from "lucide-react";
 import {useEffect, useState} from "react";
 import {UserService} from "@/features/users/service/userService.js";
 
-export function BoardUserCard({user, openModal}) {
+export function BoardUserCard({user, admin, openModal}) {
     const [userInfo, setUserInfo] = useState({})
     const userService = new UserService();
     const localUserId = localStorage.getItem("userID")
@@ -19,7 +19,7 @@ export function BoardUserCard({user, openModal}) {
         <div className='boardusers__card'>
             <div className='boardusers__user'>Пользователь: {userInfo?.info?.name}</div>
             <div className='boardusers__buttons'>
-                {user.userId === localUserId ?
+                {user.userId === localUserId || admin !== localUserId ?
                     ''
                     :
                     <button onClick={() => openModal('confirm', {name: userInfo?.info?.name, id: user.userId})}

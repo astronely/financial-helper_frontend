@@ -2,6 +2,7 @@ import {Modal} from '../Modal.jsx'
 import '../Modal.scss'
 import {useForm} from "react-hook-form";
 import {useModal} from "@/shared/hooks/useModal.js";
+import {useEffect} from "react";
 
 export function SignIn({open = false}) {
     const  { submitHandler} = useModal();

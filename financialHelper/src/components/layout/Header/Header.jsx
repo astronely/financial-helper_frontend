@@ -9,13 +9,13 @@ import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import {getJwtPayload, getTokenFromCookie} from "@/shared/utils/jwt.js";
 import {toast} from "react-toastify";
+import {check} from "@/api/authApi.js";
 
 export function LandingHeader() {
     const {setIsActive, setModal, setSubmitHandler, resetModal} = useModal();
     const navigate = useNavigate();
     const {reset} = useForm()
     const service = new UserService()
-
 
     const handleLogin = async data => {
         try {
@@ -33,6 +33,8 @@ export function LandingHeader() {
                 toast.error("Ошибка доступа к серверу")
             } else if (error.status === 500) {
                 toast.error("Неправильный логин или пароль")
+            } else if (error.status === 401) {
+                toast.error("Ошибка доступа")
             }
             console.error("Ошибка при авторизации:", error)
         }
@@ -54,12 +56,26 @@ export function LandingHeader() {
                 toast.error("Ошибка доступа к серверу")
             } else if (error.status === 409) {
                 toast.error("Пользователь с такой почтой уже зарегистрирован!")
+            } else if (error.status === 401) {
+                toast.error("Ошибка доступа")
+            } else {
+                toast.error("Ошибка: " + error.message)
             }
             console.error("Ошибка при авторизации:", error)
         }
     }
 
     async function openModal(modalName) {
+        try {
+            const response = await check("/boards");
+            if (response.isAllowed) {
+                navigate("/boards")
+                return
+            }
+        } catch (error) {
+            console.error("Ошибка авторизации: " + error)
+        }
+
         setIsActive(true)
         setModal(modalName)
         if (modalName === "signIn") {
