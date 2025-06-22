@@ -141,6 +141,7 @@ export function TransactionsLayout() {
             }
             // console.log(filtersQuery)
             setQueryParams(filtersQuery)
+            setIsActive(false)
         } catch (err) {
             toast.error("Ошибка применения фильтрации: " + err.message)
             console.error("Ошибка применения фильтрации: " + err)

@@ -7,7 +7,7 @@ export function TransactionList({transactions, usedParams, openModal}) {
         "transactionDate": "Дата проведения от",
         "transactionDateEnd": "Дата проведения до",
         "type": "Тип операции",
-        "fromWalletId": "С кошелька",
+        "fromWalletId": "Кошелек",
         "name": "Магазин",
     }
 
